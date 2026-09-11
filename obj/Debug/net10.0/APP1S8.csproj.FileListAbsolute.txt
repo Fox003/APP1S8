@@ -1,0 +1,14 @@
+/Users/focloutier/Documents/APP1S8/APP1S8/bin/Debug/net10.0/APP1S8
+/Users/focloutier/Documents/APP1S8/APP1S8/bin/Debug/net10.0/APP1S8.deps.json
+/Users/focloutier/Documents/APP1S8/APP1S8/bin/Debug/net10.0/APP1S8.runtimeconfig.json
+/Users/focloutier/Documents/APP1S8/APP1S8/bin/Debug/net10.0/APP1S8.dll
+/Users/focloutier/Documents/APP1S8/APP1S8/bin/Debug/net10.0/APP1S8.pdb
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.GeneratedMSBuildEditorConfig.editorconfig
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.AssemblyInfoInputs.cache
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.AssemblyInfo.cs
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.csproj.CoreCompileInputs.cache
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.dll
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/refint/APP1S8.dll
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.pdb
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/APP1S8.genruntimeconfig.cache
+/Users/focloutier/Documents/APP1S8/APP1S8/obj/Debug/net10.0/ref/APP1S8.dll
