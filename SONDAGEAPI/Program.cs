@@ -1,3 +1,7 @@
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using SONDAGEAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();   
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -36,6 +42,15 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapGet("/api/products/{id}", async (int id, ApplicationDbContext db) =>
+{
+    var product = await db.Products.FindAsync(id);
+    return product is not null
+        ? Results.Ok(product)
+        : Results.NotFound($"Aucun produit avec l'id {id}");
+})
+.WithName("GetProduct");
 
 app.MapGet("/ping", () =>
 {
