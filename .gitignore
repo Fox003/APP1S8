@@ -480,15 +480,3 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
-
-##
-## APP1S8 — project-specific
-##
-
-# Per-developer Claude Code permissions (the shared config in .claude/ stays tracked)
-.claude/settings.local.json
-
-# Obfuscar output (Requis 8) — keep in sync with OutPath in obfuscar.xml
-[Oo]bfuscated/
-
-# Note: ./sbom (Requis 10) is intentionally NOT ignored — the CycloneDX report is a deliverable.
