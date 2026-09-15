@@ -8,6 +8,17 @@ using SONDAGEAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS setup for little UI thingy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalDev", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 // JWT setup
 var jwtKey = builder.Configuration["Jwt:Key"] 
              ?? throw new InvalidOperationException("Jwt:Key is missing.");
@@ -60,6 +71,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ISurveyService, SurveyService>();
 
 var app = builder.Build();
 
@@ -69,25 +81,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowLocalDev");
 }
 
 app.UseHttpsRedirection();
-
-app.MapGet("/ping", () =>
-{
-    var ping = new PingResponse("pong", DateTime.UtcNow);
-    return ping;
-});
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
 
 record PingResponse(string Status, DateTime Timestamp);
