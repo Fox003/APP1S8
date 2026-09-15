@@ -1,8 +1,11 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using SONDAGEAPI.Data;
+using SONDAGEAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -11,6 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();   
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Mes services à moi et à personne d'autre pas touche
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
@@ -43,9 +51,9 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.MapGet("/api/products/{id}", async (int id, ApplicationDbContext db) =>
+app.MapGet("/api/products/{id}", async (int id, IProductService productService) =>
 {
-    var product = await db.Products.FindAsync(id);
+    var product = await productService.GetByIdAsync(id);
     return product is not null
         ? Results.Ok(product)
         : Results.NotFound($"Aucun produit avec l'id {id}");
@@ -57,6 +65,8 @@ app.MapGet("/ping", () =>
     var ping = new PingResponse("pong", DateTime.UtcNow);
     return ping;
 });
+
+app.MapControllers();
 
 app.Run();
 
