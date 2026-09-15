@@ -407,6 +407,26 @@ FodyWeavers.xsd
 .idea/
 
 ##
+## APP1S8 / SONDAGEAPI -- project-specific
+##
+
+# SQLite: the database is build output, the EF migration is the source of truth.
+# -shm and -wal are transient SQLite internals and must never be tracked.
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Per-developer Claude Code permissions (shared config under .claude/ stays tracked)
+.claude/settings.local.json
+
+# Obfuscar output (livrable 8) -- keep in sync with OutPath in obfuscar.xml
+[Oo]bfuscated/
+
+# Note: ./sbom (livrable 10) is intentionally NOT ignored -- the CycloneDX report is a deliverable.
+
+##
 ## Visual studio for Mac
 ##
 
