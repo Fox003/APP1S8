@@ -1,6 +1,13 @@
-@SONDAGEAPI_HostAddress = http://localhost:5263
+@SONDAGEAPI_HostAddress = https://localhost:7016
+@SONDAGEAPI_ApiKey = <valeur de Sondage:ApiKey, voir dotnet user-secrets>
 
-GET {{SONDAGEAPI_HostAddress}}/weatherforecast/
+GET {{SONDAGEAPI_HostAddress}}/ping
 Accept: application/json
+
+###
+
+GET {{SONDAGEAPI_HostAddress}}/api/products/1
+Accept: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
 
 ###

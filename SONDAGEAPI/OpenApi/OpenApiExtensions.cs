@@ -1,4 +1,5 @@
-﻿using SONDAGEAPI.OpenApi;
+using Microsoft.OpenApi;
+using SONDAGEAPI.OpenApi;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -7,7 +8,11 @@ public static class OpenApiExtensions
     public static IServiceCollection AddSondageOpenApi(this IServiceCollection services)
     {
         services.AddOpenApi(options =>
-            options.AddDocumentTransformer<ApiKeySecuritySchemeTransformer>());
+        {
+            // Swagger UI et Postman supportent mal OpenAPI 3.1 (types en union).
+            options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
+            options.AddDocumentTransformer<ApiKeySecuritySchemeTransformer>();
+        });
         return services;
     }
 
@@ -15,7 +20,7 @@ public static class OpenApiExtensions
     {
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
+            app.MapOpenApi().WithoutApiKey();   // endpoint: s'exécute après le middleware, donc à exempter
             app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "SONDAGEAPI v1"));
         }
 

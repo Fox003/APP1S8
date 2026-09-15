@@ -34,12 +34,12 @@ tooling decisions in the Status column here; there is no separate dependency doc
 
 | # | Livrable | Kind | Status |
 | --- | --- | --- | --- |
-| 1 | API secured by **HTTPS**, authorization via an **access key** | code | `UseHttpsRedirection()` is on; **no access key, no auth of any kind yet** |
-| 2 | **OpenAPI** documentation integrated via **Swagger** | code | Done — `Swashbuckle.AspNetCore` + `Microsoft.AspNetCore.OpenApi`, dev-only |
-| 3 | **Postman collection** demonstrating the API, linked to the OpenAPI schema | artifact | Not started; only `SONDAGEAPI.http` exists |
-| 4 | **Participant authentication** guaranteeing uniqueness of participation | code | Not started; `Microsoft.AspNetCore.Authentication.JwtBearer` was dropped in the rebuild |
+| 1 | API secured by **HTTPS**, authorization via an **access key** | code | **Done (2026-09-15)** — `UseHttpsRedirection()` + `Security/ApiKeyMiddleware` checking `X-API-Key`. See `.claude/Max/2026-09-15-livrable1-api-key.md` |
+| 2 | **OpenAPI** documentation integrated via **Swagger** | code | Done — single document from `AddOpenApi()` at `/openapi/v1.json`, **pinned to OpenAPI 3.0**; Swashbuckle kept for the UI shell only. Dev-only |
+| 3 | **Postman collection** demonstrating the API, linked to the OpenAPI schema | artifact | Not started. Import `/openapi/v1.json` (3.0 pin is there partly for Postman); `SONDAGEAPI.http` covers both endpoints meanwhile |
+| 4 | **Participant authentication** guaranteeing uniqueness of participation | code | Not started; `Microsoft.AspNetCore.Authentication.JwtBearer` was dropped in the rebuild. This one belongs in the real authentication stack, **not** in the livrable-1 middleware |
 | 5 | **xUnit test battery, in the same solution as the API**, proving full coverage *and* the mitigations from the attack-surface analysis | code | **Blocked** — see known issues 1–4 |
-| 6 | **Security impact analysis**, including attack vectors | document | Not started. Feeds the mitigations #5 must test |
+| 6 | **Security impact analysis**, including attack vectors | document | Not started. Feeds the mitigations #5 must test. Material to reuse: section 2 and 3 of `.claude/Max/2026-09-15-livrable1-api-key.md` |
 | 7 | **In-code security mechanisms** — stack execution prevention, VS hardening options | build config | Not started. NX/DEP, ASLR, CFG — csproj/linker properties, not library code |
 | 8 | **Code protection by obfuscation** + the configuration used | code + doc | `Obfuscar.GlobalTool` 2.2.50 installed globally (`obfuscar.console`); no `obfuscar.xml` yet |
 | 9 | **Operational recommendations** (system architecture) | document | Not started |
@@ -61,6 +61,8 @@ API, and participant authentication proving uniqueness. Don't collapse them into
 ```
 SONDAGEAPI/          the API — net10.0, Microsoft.NET.Sdk.Web
   Program.cs         minimal API, all endpoints inline
+  Security/          API-key middleware, options, exemption marker, DI extensions
+  OpenApi/           document transformer (securitySchemes) + DI extensions
   Data/              ApplicationDbContext (EF Core)
   Models/            Product.cs  (template cruft — not the survey domain)
   Migrations/        InitialCreate — Products table only
@@ -79,21 +81,37 @@ dotnet build SONDAGEAPI/SONDAGEAPI.csproj    # stop the running app first, or th
 dotnet run   --project SONDAGEAPI            # https://localhost:7016  |  http://localhost:5263
 dotnet test  Tests/Tests.csproj              # currently fails — see known issue 1
 dotnet ef migrations add <Name> --project SONDAGEAPI
+
+dotnet user-secrets set "Sondage:ApiKey" "<key>" --project SONDAGEAPI   # required, or startup fails
+dotnet user-secrets list --project SONDAGEAPI
 ```
+
+**The API will not start without `Sondage:ApiKey`.** `ValidateOnStart()` rejects a missing or
+under-32-character key. The secret store is per-developer, so each of Max and F-O sets their own;
+outside Development the value comes from the `Sondage__ApiKey` environment variable (double
+underscore). Never commit the value.
 
 Swagger UI is at `/swagger`, registered **only when `ASPNETCORE_ENVIRONMENT=Development`**.
 
-Existing endpoints: `GET /ping`, `GET /api/products/{id}`, `GET /weatherforecast`.
+Existing endpoints: `GET /ping` (exempt from the key), `GET /api/products/{id:int}` (key required).
+A browser address bar cannot send `X-API-Key` — test through Swagger, `SONDAGEAPI.http`, Postman or
+curl.
 
-## Current state (2026-09-14)
+## Current state (2026-09-15)
 
 F-O rebuilt the project from scratch on 2026-09-12 (commit `02cbff6`, *"Nuke but remake lol"*),
 replacing the original console app with `SONDAGEAPI`. Since then he has added Swagger, a ping route,
 a test project, and EF Core + SQLite with a `Product` entity.
 
-The API compiles clean and runs. The survey domain does not exist yet — `Product { Id, Name, Price }`
-is scaffolding from the EF tutorial, as are the `/weatherforecast` endpoint and its
-`WeatherForecast` record.
+On 2026-09-15 Max finished **livrable 1**: the API-key middleware, its OpenAPI security scheme, and
+the supporting DI extensions. Verified against a running instance — no key and wrong key both give
+an identical 401, a valid key gives 200, `/ping` stays open. The write-up, including the reasoning
+to reuse in livrables 6 and 9, is in `.claude/Max/2026-09-15-livrable1-api-key.md`.
+
+The API compiles clean and runs. The survey domain still does not exist — `Product { Id, Name,
+Price }` is scaffolding from the EF tutorial. It is currently load-bearing: `/api/products/{id:int}`
+is the only key-protected endpoint, so it is what demonstrates the middleware until the survey
+entities replace it.
 
 ## Known issues
 
@@ -120,16 +138,20 @@ Ordered by how much they block. 1–4 all stand between the team and livrable 5.
    SONDAGEAPI/app.db-wal` — but F-O pushed the DB deliberately (commit `75bce66`), so agree with him
    first and make sure any seed data he wants lives in a migration or a seeding routine.
 6. **Packages required by later livrables are missing:**
-   `Microsoft.AspNetCore.Authentication.JwtBearer` (livrables 1, 4) and the `CycloneDX` global tool
-   (livrable 10).
-7. **Template cruft in `Program.cs`** — `/weatherforecast`, the `summaries` array, and the
-   `WeatherForecast` record are scaffolding. `Models/Product.cs` and the `InitialCreate` migration
-   are EF tutorial leftovers, not the survey domain. The attack-surface analysis (#6) has to account
-   for every endpoint that ships, so delete these before they need documenting.
-8. **Two OpenAPI stacks are registered at once** — `AddOpenApi()` (built-in, serves
-   `/openapi/v1.json`) and `AddSwaggerGen()` + `UseSwaggerUI()` (Swashbuckle). Both work, but they
-   produce two schema documents. Livrable 3 requires the Postman collection to be linked to *the*
-   schema, so pick one.
+   `Microsoft.AspNetCore.Authentication.JwtBearer` (livrable 4) and the `CycloneDX` global tool
+   (livrable 10). Livrable 1 needed neither — the access key is plain middleware.
+7. **Template cruft — partly cleared.** `/weatherforecast`, the `summaries` array and the
+   `WeatherForecast` record are gone (2026-09-15). `Models/Product.cs`, `DbSet<Product>` and the
+   `InitialCreate` migration remain EF tutorial leftovers, kept only because they carry the one
+   endpoint that proves the API-key middleware. Drop them **together with** the survey entities, in
+   a single migration, rather than piecemeal.
+8. ~~**Two OpenAPI stacks registered at once.**~~ Resolved 2026-09-15: `AddSwaggerGen()` and
+   `AddEndpointsApiExplorer()` were removed. `AddOpenApi()` produces the one document, and
+   `UseSwaggerUI()` is kept purely as a UI shell pointed at `/openapi/v1.json`.
+9. **The API key is a single static shared secret with no rotation or expiry.** Adequate for the
+   livrable, but it is the weak point of the scheme — name it in #6 and #9 rather than letting a
+   corrector find it. The current dev key also leaked into an assistant session and should be
+   rotated.
 
 ## Conventions
 
