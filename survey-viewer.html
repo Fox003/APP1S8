@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Survey Viewer</title>
+<style>
+  :root {
+    --bg: #f7f7f9;
+    --card: #ffffff;
+    --border: #e2e2e7;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --accent: #3454d1;
+    --accent-hover: #28409f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 {
+    font-size: 20px;
+    margin: 0;
+  }
+  header .api-base {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+  }
+  #back-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    padding: 0;
+  }
+  #back-btn:hover { text-decoration: underline; }
+  .status {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 12px 0;
+  }
+  .status.error { color: #c0392b; }
+  .survey-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .survey-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .survey-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(52, 84, 209, 0.08);
+  }
+  .survey-item .title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .survey-item .desc {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .survey-detail h2 {
+    font-size: 22px;
+    margin: 0 0 4px;
+  }
+  .survey-detail .desc {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  .question-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .question-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .question-item .num {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .question-item .body {
+    font-size: 15px;
+  }
+  .question-item .type {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .choice-list {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .choice-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .choice-item .bullet {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .choice-item.correct .bullet {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .choice-item.correct .text {
+    font-weight: 600;
+  }
+  #reload-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  #reload-btn:hover { background: var(--accent-hover); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Surveys</h1>
+  <div>
+    <span class="api-base">localhost:5263</span>
+    <button id="reload-btn" onclick="loadSurveys()">Refresh</button>
+  </div>
+</header>
+
+<main>
+  <button id="back-btn" onclick="showList()">&larr; Back to surveys</button>
+  <div id="status" class="status"></div>
+  <ul id="survey-list" class="survey-list"></ul>
+  <div id="survey-detail" class="survey-detail" style="display:none;"></div>
+</main>
+
+<script>
+const API_BASE = "http://localhost:5263";
+
+const statusEl = document.getElementById("status");
+const listEl = document.getElementById("survey-list");
+const detailEl = document.getElementById("survey-detail");
+const backBtn = document.getElementById("back-btn");
+
+function setStatus(msg, isError) {
+  statusEl.textContent = msg || "";
+  statusEl.className = "status" + (isError ? " error" : "");
+}
+
+function showList() {
+  backBtn.style.display = "none";
+  detailEl.style.display = "none";
+  listEl.style.display = "flex";
+  loadSurveys();
+}
+
+// Pull a readable value out of an object trying several likely field names.
+function pick(obj, keys, fallback) {
+  for (const k of keys) {
+    if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "") {
+      return obj[k];
+    }
+  }
+  return fallback;
+}
+
+async function loadSurveys() {
+  listEl.innerHTML = "";
+  setStatus("Loading surveys...");
+  try {
+    const res = await fetch(`${API_BASE}/api/Survey`);
+    if (!res.ok) throw new Error(`Request failed (${res.status})`);
+    let data = await res.json();
+    if (!Array.isArray(data)) data = data.items || data.data || data.surveys || [];
+
+    if (data.length === 0) {
+      setStatus("No surveys found.");
+      return;
+    }
+    setStatus("");
+
+    data.forEach(survey => {
+      const id = pick(survey, ["id", "surveyId", "Id", "SurveyId"]);
+      const title = pick(survey, ["title", "name", "surveyTitle", "Title", "Name"], "Untitled survey");
+      const desc = pick(survey, ["description", "desc", "Description"], "");
+
+      const li = document.createElement("li");
+      li.className = "survey-item";
+      li.innerHTML = `
+        <div class="title"></div>
+        <div class="desc"></div>
+      `;
+      li.querySelector(".title").textContent = title;
+      li.querySelector(".desc").textContent = desc;
+      li.addEventListener("click", () => loadSurveyDetail(id, title));
+      listEl.appendChild(li);
+    });
+  } catch (err) {
+    setStatus(
+      `Couldn't reach the API at ${API_BASE}. Make sure the server is running and CORS is enabled. (${err.message})`,
+      true
+    );
+  }
+}
+
+async function loadSurveyDetail(id, fallbackTitle) {
+  listEl.style.display = "none";
+  detailEl.style.display = "block";
+  backBtn.style.display = "inline-block";
+  detailEl.innerHTML = "";
+  setStatus("Loading survey...");
+
+  try {
+    const res = await fetch(`${API_BASE}/api/Survey/${id}`);
+    if (!res.ok) throw new Error(`Request failed (${res.status})`);
+    const survey = await res.json();
+
+    const title = pick(survey, ["title", "name", "surveyTitle", "Title", "Name"], fallbackTitle || "Survey");
+    const desc = pick(survey, ["description", "desc", "Description"], "");
+    let questions = pick(survey, ["questions", "Questions"], []);
+    if (!Array.isArray(questions)) questions = [];
+
+    setStatus("");
+
+    const heading = document.createElement("h2");
+    heading.textContent = title;
+    detailEl.appendChild(heading);
+
+    if (desc) {
+      const descEl = document.createElement("div");
+      descEl.className = "desc";
+      descEl.textContent = desc;
+      detailEl.appendChild(descEl);
+    }
+
+    const ul = document.createElement("ul");
+    ul.className = "question-list";
+
+    if (questions.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "status";
+      empty.textContent = "This survey has no questions.";
+      detailEl.appendChild(empty);
+    } else {
+      questions.forEach((q, i) => {
+        const text = pick(q, ["text", "questionText", "title", "Text", "QuestionText", "Title"], "(untitled question)");
+        const type = pick(q, ["type", "questionType", "Type", "QuestionType"], "");
+        let choices = pick(q, ["choices", "options", "answers", "answerChoices", "Choices", "Options", "Answers", "AnswerChoices"], []);
+        if (!Array.isArray(choices)) choices = [];
+
+        const li = document.createElement("li");
+        li.className = "question-item";
+        li.innerHTML = `
+          <span class="num">${i + 1}.</span>
+          <div class="body">
+            <div class="text"></div>
+            ${type ? `<span class="type"></span>` : ""}
+          </div>
+        `;
+        li.querySelector(".text").textContent = text;
+        if (type) li.querySelector(".type").textContent = type;
+
+        if (choices.length > 0) {
+          const choiceUl = document.createElement("ul");
+          choiceUl.className = "choice-list";
+          choices.forEach(c => {
+            // Choices may just be plain strings, or objects with a text field.
+            const choiceText = typeof c === "string"
+              ? c
+              : pick(c, ["text", "label", "choiceText", "optionText", "value", "Text", "Label", "ChoiceText", "OptionText"], "(option)");
+            const isCorrect = typeof c === "object" && c !== null
+              ? !!pick(c, ["isCorrect", "correct", "IsCorrect", "Correct"], false)
+              : false;
+
+            const choiceLi = document.createElement("li");
+            choiceLi.className = "choice-item" + (isCorrect ? " correct" : "");
+            choiceLi.innerHTML = `<span class="bullet"></span><span class="text"></span>`;
+            choiceLi.querySelector(".text").textContent = choiceText;
+            choiceUl.appendChild(choiceLi);
+          });
+          li.querySelector(".body").appendChild(choiceUl);
+        }
+
+        ul.appendChild(li);
+      });
+      detailEl.appendChild(ul);
+    }
+  } catch (err) {
+    setStatus(`Couldn't load this survey. (${err.message})`, true);
+  }
+}
+
+loadSurveys();
+</script>
+
+</body>
+</html>
