@@ -30,7 +30,7 @@ internal sealed class ApiKeyMiddleware
 
         if (!TryGetPresentedKey(context, out var presentedKey) || !IsValidKey(presentedKey))
         {
-            _logger.LogError("Clé D'API invalide. {Method} {Path}", context.Request.Method, context.Request.Path);
+            _logger.LogWarning("Clé D'API invalide. {Method} {Path}", context.Request.Method, context.Request.Path);
             await WriteUnauthorizedAsync(context);
             return;
         }

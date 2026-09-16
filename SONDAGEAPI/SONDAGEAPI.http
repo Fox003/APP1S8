@@ -1,13 +1,82 @@
 @SONDAGEAPI_HostAddress = https://localhost:7016
 @SONDAGEAPI_ApiKey = <valeur de Sondage:ApiKey, voir dotnet user-secrets>
 
+### Ping — exempt de la clé d'API
 GET {{SONDAGEAPI_HostAddress}}/ping
 Accept: application/json
 
-###
+### 1. Créer un sondage (clé d'API)
+# @name createSondage
+POST {{SONDAGEAPI_HostAddress}}/api/sondages
+Content-Type: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
 
-GET {{SONDAGEAPI_HostAddress}}/api/products/1
+{
+  "title": "Satisfaction APP1",
+  "closesAt": null
+}
+
+### Récupérer le sondage créé
+@sondageId = {{createSondage.response.body.id}}
+
+GET {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}
 Accept: application/json
 X-API-Key: {{SONDAGEAPI_ApiKey}}
+
+### 2. Émettre une invitation — le jeton en clair n'apparaît QUE dans cette réponse
+# @name createInvitation
+POST {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/invitations
+Content-Type: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
+
+{
+  "validityDays": 30
+}
+
+### 3. Statut de participation — ne consomme PAS le jeton, rejouable
+@jeton = {{createInvitation.response.body.token}}
+
+GET {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/participation
+Accept: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
+X-Participant-Token: {{jeton}}
+
+### 4. Soumettre une réponse — 201 la première fois
+POST {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/reponses
+Content-Type: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
+X-Participant-Token: {{jeton}}
+
+{
+  "content": "Très satisfait de l'APP1."
+}
+
+### 5. Rejouer la même soumission — 409, garantie d'unicité
+POST {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/reponses
+Content-Type: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
+X-Participant-Token: {{jeton}}
+
+{
+  "content": "Deuxième tentative"
+}
+
+### 6. Sans jeton de participation — 401
+POST {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/reponses
+Content-Type: application/json
+X-API-Key: {{SONDAGEAPI_ApiKey}}
+
+{
+  "content": "Sans jeton"
+}
+
+### 7. Sans clé d'API — 401 (couche 1, avant même l'authentification du participant)
+POST {{SONDAGEAPI_HostAddress}}/api/sondages/{{sondageId}}/reponses
+Content-Type: application/json
+X-Participant-Token: {{jeton}}
+
+{
+  "content": "Sans clé"
+}
 
 ###

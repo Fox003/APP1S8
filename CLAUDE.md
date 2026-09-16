@@ -37,8 +37,8 @@ tooling decisions in the Status column here; there is no separate dependency doc
 | 1 | API secured by **HTTPS**, authorization via an **access key** | code | **Done (2026-09-15)** — `UseHttpsRedirection()` + `Security/ApiKeyMiddleware` checking `X-API-Key`. See `.claude/Max/2026-09-15-livrable1-api-key.md` |
 | 2 | **OpenAPI** documentation integrated via **Swagger** | code | Done — single document from `AddOpenApi()` at `/openapi/v1.json`, **pinned to OpenAPI 3.0**; Swashbuckle kept for the UI shell only. Dev-only |
 | 3 | **Postman collection** demonstrating the API, linked to the OpenAPI schema | artifact | Not started. Import `/openapi/v1.json` (3.0 pin is there partly for Postman); `SONDAGEAPI.http` covers both endpoints meanwhile |
-| 4 | **Participant authentication** guaranteeing uniqueness of participation | code | Not started; `Microsoft.AspNetCore.Authentication.JwtBearer` was dropped in the rebuild. This one belongs in the real authentication stack, **not** in the livrable-1 middleware |
-| 5 | **xUnit test battery, in the same solution as the API**, proving full coverage *and* the mitigations from the attack-surface analysis | code | **Blocked** — see known issues 1–4 |
+| 4 | **Participant authentication** guaranteeing uniqueness of participation | code | **Done (2026-09-15, branch `max`)** — opaque one-time invitation token, `AuthenticationHandler` + conditional `UPDATE`. See `.claude/Max/2026-09-15-livrable4-jeton-participation.md`. F-O has a parallel **JWT** implementation on `fo`; the two get compared against the grading grid and one is kept. No JwtBearer package needed for the token approach |
+| 5 | **xUnit test battery, in the same solution as the API**, proving full coverage *and* the mitigations from the attack-surface analysis | code | Must include the **TOCTOU race test** (N concurrent submissions, one 201, N−1 409). Unblocked 2026-09-15 — tests execute and see the API (`net10.0`, `ProjectReference`, `SONDAGEAPI.slnx`). Only `UnitTest1.Test1` (`Assert.True(true)`) exists. Coverage proof still **blocked** on known issue 4 |
 | 6 | **Security impact analysis**, including attack vectors | document | Not started. Feeds the mitigations #5 must test. Material to reuse: section 2 and 3 of `.claude/Max/2026-09-15-livrable1-api-key.md` |
 | 7 | **In-code security mechanisms** — stack execution prevention, VS hardening options | build config | Not started. NX/DEP, ASLR, CFG — csproj/linker properties, not library code |
 | 8 | **Code protection by obfuscation** + the configuration used | code + doc | `Obfuscar.GlobalTool` 2.2.50 installed globally (`obfuscar.console`); no `obfuscar.xml` yet |
@@ -62,24 +62,30 @@ API, and participant authentication proving uniqueness. Don't collapse them into
 SONDAGEAPI/          the API — net10.0, Microsoft.NET.Sdk.Web
   Program.cs         minimal API, all endpoints inline
   Security/          API-key middleware, options, exemption marker, DI extensions
-  OpenApi/           document transformer (securitySchemes) + DI extensions
-  Data/              ApplicationDbContext (EF Core)
-  Models/            Product.cs  (template cruft — not the survey domain)
-  Migrations/        InitialCreate — Products table only
+    Participants/    livrable 4 — token gen/hash, AuthenticationHandler, claims, DI extensions
+  OpenApi/           two document transformers (API key + participant token) & DI extensions
+  Contracts/         request/response records
+  Data/              ApplicationDbContext (EF Core) — DbSets + OnModelCreating indexes
+  Models/            Survey, Invitation, SurveyResponse
+  Migrations/        InitialCreate, SurveyDomain (drops Products, adds the survey schema)
   app.db             SQLite database (tracked in git — see known issues)
   global.json        SDK pin: 10.0.0, rollForward latestMajor
-Tests/               net8.0, xunit.v3.mtp-v2 on Microsoft.Testing.Platform
+Tests/               net10.0, xunit.v3.mtp-v2 on Microsoft.Testing.Platform
+                     ProjectReference -> SONDAGEAPI; only UnitTest1.Test1 (a stub) so far
+SONDAGEAPI.slnx      repo root — solution, both projects
 global.json          repo root — test runner config only, no SDK pin
 ```
 
-There is **no `.sln`**.
+The solution is **`.slnx`**, the XML format .NET 10's `dotnet new sln` now emits by default (the
+teacher asked for it). It needs VS 17.14+ / Rider 2025.1+. Three readable lines instead of the
+classic `.sln` GUID soup, so it stops being a merge-conflict source.
 
 ## Commands
 
 ```bash
-dotnet build SONDAGEAPI/SONDAGEAPI.csproj    # stop the running app first, or the exe copy fails
+dotnet build SONDAGEAPI.slnx                 # stop the running app first, or the exe copy fails
 dotnet run   --project SONDAGEAPI            # https://localhost:7016  |  http://localhost:5263
-dotnet test  Tests/Tests.csproj              # currently fails — see known issue 1
+dotnet test  SONDAGEAPI.slnx                 # 1/1 passing (the stub)
 dotnet ef migrations add <Name> --project SONDAGEAPI
 
 dotnet user-secrets set "Sondage:ApiKey" "<key>" --project SONDAGEAPI   # required, or startup fails
@@ -93,8 +99,19 @@ underscore). Never commit the value.
 
 Swagger UI is at `/swagger`, registered **only when `ASPNETCORE_ENVIRONMENT=Development`**.
 
-Existing endpoints: `GET /ping` (exempt from the key), `GET /api/products/{id:int}` (key required).
-A browser address bar cannot send `X-API-Key` — test through Swagger, `SONDAGEAPI.http`, Postman or
+Endpoints. `GET /ping` is exempt from the key. Everything under `/api/` needs `X-API-Key`; the two
+participation endpoints need `X-Participant-Token` **as well**.
+
+| Endpoint | Auth |
+| --- | --- |
+| `GET /ping` | none |
+| `POST /api/sondages` | API key |
+| `GET /api/sondages/{id:guid}` | API key |
+| `POST /api/sondages/{id:guid}/invitations` | API key — **returns the plaintext token once** |
+| `POST /api/sondages/{id:guid}/reponses` | API key + participant token |
+| `GET /api/sondages/{id:guid}/participation` | API key + participant token |
+
+A browser address bar cannot send headers — test through Swagger, `SONDAGEAPI.http`, Postman or
 curl.
 
 ## Current state (2026-09-15)
@@ -108,43 +125,52 @@ the supporting DI extensions. Verified against a running instance — no key and
 an identical 401, a valid key gives 200, `/ping` stays open. The write-up, including the reasoning
 to reuse in livrables 6 and 9, is in `.claude/Max/2026-09-15-livrable1-api-key.md`.
 
-The API compiles clean and runs. The survey domain still does not exist — `Product { Id, Name,
-Price }` is scaffolding from the EF tutorial. It is currently load-bearing: `/api/products/{id:int}`
-is the only key-protected endpoint, so it is what demonstrates the middleware until the survey
-entities replace it.
+Also on 2026-09-15 the test plumbing was repaired: `Tests` retargeted to `net10.0`, given a
+`ProjectReference` to `SONDAGEAPI`, and both projects put in a new root `SONDAGEAPI.slnx`. The suite
+now actually executes (1/1), and `Microsoft.AspNetCore.App` flows transitively into
+`Tests.runtimeconfig.json`, so no hand-written `FrameworkReference` is needed.
+
+Still on 2026-09-15, Max built **livrable 4** on branch `max` using the opaque-token approach:
+`Survey` / `Invitation` / `SurveyResponse`, the `SurveyDomain` migration (which also drops
+`Products`), a `ParticipantTokenAuthenticationHandler`, and the participation endpoints. Verified
+against a running instance, including a 10-way concurrent submission that produced exactly one 201
+and nine 409s, with a single row in `Responses`.
+
+The survey domain now exists and `Product` is gone. F-O is implementing livrable 4 as JWT on branch
+`fo`; both stay until the team picks one against the grading grid.
 
 ## Known issues
 
-Ordered by how much they block. 1–4 all stand between the team and livrable 5.
+Ordered by how much they block. Of the four that stood between the team and livrable 5, only #4
+remains.
 
-1. **The test suite cannot execute.** `Tests.csproj` targets `net8.0`, but only the .NET 10 SDK is
-   installed, so `dotnet test` exits with *"Zéro tests exécutés"* and asks for the
-   `Microsoft.NETCore.App 8.0.0` runtime. The project *builds* fine, which makes this easy to miss.
-   Retarget to `net10.0`.
-2. **`Tests` has no `ProjectReference` to `SONDAGEAPI`** — the test project still cannot see the
-   code under test, so no real test can be written.
-3. **No solution file.** Livrable 5 explicitly requires the tests to be *"inclus dans la même
-   solution que le projet d'API"*, so this is a graded gap, not a preference.
+1. ~~**The test suite cannot execute.**~~ Resolved 2026-09-15: `Tests.csproj` retargeted from
+   `net8.0` to `net10.0`. It used to *build* fine while `dotnet test` reported *"Zéro tests
+   exécutés"* and asked for the `Microsoft.NETCore.App 8.0.0` runtime, which made it easy to miss.
+2. ~~**`Tests` has no `ProjectReference` to `SONDAGEAPI`.**~~ Resolved 2026-09-15.
+3. ~~**No solution file.**~~ Resolved 2026-09-15: `SONDAGEAPI.slnx` at the repo root holds both
+   projects, satisfying livrable 5's *"inclus dans la même solution que le projet d'API"*.
 4. **The rebuild dropped the coverage and mocking stack.** `coverlet.collector` and `Moq` are gone,
    and the test stack moved from xUnit 2 + `Microsoft.NET.Test.Sdk` to `xunit.v3.mtp-v2` on
    Microsoft.Testing.Platform. MTP does not take `--collect:"XPlat Code Coverage"` the way VSTest
    did, so the coverage proof livrable 5 demands needs a deliberate choice —
    `Microsoft.Testing.Extensions.CodeCoverage`, or revert to the VSTest runner.
-5. **The SQLite database is still tracked.** `.gitignore` now carries `*.db`, `*.db-shm`, and
+5. **The SQLite database is still tracked** — now more pressing, since `app.db` carries the survey
+   schema and both developers are writing migrations. `.gitignore` now carries `*.db`, `*.db-shm`, and
    `*.db-wal` rules, but ignore rules do not apply to files already in the index, so
    `SONDAGEAPI/app.db`, `app.db-shm`, and `app.db-wal` remain tracked. A binary DB written by both
    developers conflicts constantly, and `-shm`/`-wal` are transient SQLite internals. The migration
    is the source of truth. Needs `git rm --cached SONDAGEAPI/app.db SONDAGEAPI/app.db-shm
    SONDAGEAPI/app.db-wal` — but F-O pushed the DB deliberately (commit `75bce66`), so agree with him
    first and make sure any seed data he wants lives in a migration or a seeding routine.
-6. **Packages required by later livrables are missing:**
-   `Microsoft.AspNetCore.Authentication.JwtBearer` (livrable 4) and the `CycloneDX` global tool
-   (livrable 10). Livrable 1 needed neither — the access key is plain middleware.
-7. **Template cruft — partly cleared.** `/weatherforecast`, the `summaries` array and the
-   `WeatherForecast` record are gone (2026-09-15). `Models/Product.cs`, `DbSet<Product>` and the
-   `InitialCreate` migration remain EF tutorial leftovers, kept only because they carry the one
-   endpoint that proves the API-key middleware. Drop them **together with** the survey entities, in
-   a single migration, rather than piecemeal.
+6. **Packages required by later livrables are missing:** the `CycloneDX` global tool (livrable 10).
+   `Microsoft.AspNetCore.Authentication.JwtBearer` is **not** needed by the token implementation of
+   livrable 4 — it uses only the framework's built-in `AuthenticationHandler`. F-O's JWT branch
+   needs it; whether it ever lands depends on which implementation the team keeps.
+7. ~~**Template cruft.**~~ Cleared 2026-09-15: `/weatherforecast` and the `WeatherForecast` record
+   went first, then `Models/Product.cs`, `DbSet<Product>` and the `Products` table, dropped by the
+   `SurveyDomain` migration alongside the survey entities. `GET /api/sondages/{id:guid}` took over
+   as the endpoint demonstrating the API key. The `InitialCreate` migration stays in history.
 8. ~~**Two OpenAPI stacks registered at once.**~~ Resolved 2026-09-15: `AddSwaggerGen()` and
    `AddEndpointsApiExplorer()` were removed. `AddOpenApi()` produces the one document, and
    `UseSwaggerUI()` is kept purely as a UI shell pointed at `/openapi/v1.json`.
@@ -152,6 +178,16 @@ Ordered by how much they block. 1–4 all stand between the team and livrable 5.
    livrable, but it is the weak point of the scheme — name it in #6 and #9 rather than letting a
    corrector find it. The current dev key also leaked into an assistant session and should be
    rotated.
+10. **SQLite serialises writers** — relevant to livrable 9, not a bug. The 10-way race test passed
+    with no lock errors at this scale, but one writer at a time is a property of the engine, not of
+    the code. Any recommendation about real deployment should name PostgreSQL (or equivalent) and
+    note that the conditional-`UPDATE` pattern carries over unchanged.
+11. **The SDK pin sits below the solution.** `"sdk": { "version": "10.0.0" }` lives in
+    `SONDAGEAPI/global.json`, but the solution is at the repo root, so building through
+    `SONDAGEAPI.slnx` never reads that pin and `Tests` is not covered by it. Merging the `sdk` block
+    into the root `global.json` (which currently holds only `test.runner`) would pin the whole
+    solution. Harmless while 10.0.401 is the only SDK installed; it bites the day either developer
+    installs a second one.
 
 ## Conventions
 

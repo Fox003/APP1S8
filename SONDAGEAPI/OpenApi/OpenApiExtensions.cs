@@ -12,6 +12,8 @@ public static class OpenApiExtensions
             // Swagger UI et Postman supportent mal OpenAPI 3.1 (types en union).
             options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
             options.AddDocumentTransformer<ApiKeySecuritySchemeTransformer>();
+            options.AddDocumentTransformer<ParticipantTokenSecuritySchemeTransformer>();
+            options.AddOperationTransformer<ParticipantTokenSecuritySchemeTransformer>();
         });
         return services;
     }
