@@ -5,8 +5,6 @@ using SONDAGEAPI.Data;
 using SONDAGEAPI.Models;
 using SONDAGEAPI.Security.Participants;
 
-const int DefaultInvitationValidityDays = 30;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -48,11 +46,25 @@ app.MapPost("/api/sondages", async (
         });
     }
 
+    var now = clock.GetUtcNow();
+
+    // Un sondage dont la fermeture est déjà passée naîtrait mort : toute soumission
+    // serait refusée en 409 « Sondage clos ». Swagger préremplit closesAt avec un
+    // horodatage généré au rendu de la page, déjà passé au moment du clic — piège
+    // observé en test, d'où cette validation.
+    if (request.ClosesAt is { } closesAt && closesAt <= now)
+    {
+        return Results.ValidationProblem(new Dictionary<string, string[]>
+        {
+            ["closesAt"] = ["La date de fermeture doit être dans le futur, ou nulle pour un sondage sans échéance."]
+        });
+    }
+
     var survey = new Survey
     {
         Id = Guid.NewGuid(),
         Title = request.Title.Trim(),
-        CreatedAt = clock.GetUtcNow(),
+        CreatedAt = now,
         ClosesAt = request.ClosesAt
     };
 
@@ -80,11 +92,11 @@ app.MapGet("/api/sondages/{id:guid}", async (Guid id, ApplicationDbContext db) =
 // Émet une invitation : c'est ici, et seulement ici, que le jeton en clair existe.
 app.MapPost("/api/sondages/{id:guid}/invitations", async (
     Guid id,
-    CreateInvitationRequest? request,
+    CreateInvitationRequest request,
     ApplicationDbContext db,
     TimeProvider clock) =>
 {
-    var validityDays = request?.ValidityDays ?? DefaultInvitationValidityDays;
+    var validityDays = request.ValidityDays;
     if (validityDays is < 1 or > 365)
     {
         return Results.ValidationProblem(new Dictionary<string, string[]>

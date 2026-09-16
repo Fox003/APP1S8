@@ -120,6 +120,72 @@ Le `if` applicatif n'est plus une garantie, seulement un message d'erreur courto
 Rédemption et insertion de la réponse sont dans **la même transaction** : sinon un plantage entre les
 deux consommerait la participation sans enregistrer la réponse — pire que la course corrigée.
 
+## 3bis. Piège rencontré — `security` d'opération vs `security` de document
+
+Première version du transformateur OpenAPI : le schéma `ParticipantTokenAuth` était ajouté comme
+exigence sur les deux endpoints de participation, en supposant qu'il s'ajoutait à l'exigence globale
+`ApiKeyAuth`. **Faux.** La spec OpenAPI 3.0 dit que la sécurité déclarée au niveau d'une opération
+*remplace* celle du document, elle ne fusionne pas avec elle.
+
+Conséquence observable : Swagger UI générait, pour ces deux endpoints seulement, des requêtes sans
+`X-API-Key`, immédiatement rejetées en 401 par le middleware du livrable 1. Le symptôme trompe —
+on croit que l'authentification du participant échoue alors que c'est la couche 1 qui refuse.
+
+Correction : redéclarer les deux schémas dans **une seule** `OpenApiSecurityRequirement`. Plusieurs
+schémas dans une même exigence signifient « tous requis » (ET) ; plusieurs exigences distinctes dans
+la liste signifient « l'un ou l'autre » (OU). C'est un ET qu'on veut ici.
+
+À retenir pour le Requis 6 : une documentation de sécurité fausse est un défaut de sécurité en soi.
+Ici elle sous-déclarait une exigence, ce qui est le sens le moins dangereux ; l'inverse — un schéma
+documenté mais non appliqué — donnerait une fausse assurance à l'intégrateur.
+
+## 3ter. Piège rencontré — types union et le pin OpenAPI 3.0
+
+`CreateInvitationRequest.ValidityDays` s'affichait `null` dans Swagger UI. Deux causes cumulées :
+le paramètre de corps était `CreateInvitationRequest?` (corps facultatif, donc rendu `null`), et la
+propriété n'avait aucune valeur par défaut documentée.
+
+Corrigé par `[DefaultValue(30)]` — qui alimente le `default` du schéma, dont Swagger UI tire son
+exemple prérempli — et en rendant le corps obligatoire.
+
+Effet de bord découvert au passage : le générateur type un `int` comme `Integer|String` (il accepte
+`30` comme `"30"`), et un `int?` comme `Integer|String|Null`. En OpenAPI 3.1 cela se sérialise en
+`type: ["integer","string"]`, et la rétrogradation vers 3.0 le rend en `anyOf`. C'est précisément le
+**type union** que le pin 3.0 sert à éviter, puisque Swagger UI et Postman le rendent mal — le pin
+était donc contourné par le générateur lui-même.
+
+Deux corrections : `ValidityDays` passe de `int?` à `int` (supprime la branche `null`), et
+`NumericUnionSchemaTransformer` aplatit `Integer|String` sur `Integer`. Le piège du transformateur :
+il faut viser `OpenApiSchema.Type`, un enum `[Flags]`, et **non** `AnyOf` — au moment où les
+transformateurs s'exécutent le document est encore en 3.1 et `AnyOf` est vide, l'`anyOf` n'apparaît
+qu'à la sérialisation. Une première version ciblant `AnyOf` ne faisait donc rien du tout.
+
+Schéma obtenu : `{ "type": "integer", "format": "int32", "minimum": 1, "maximum": 365, "default": 30 }`.
+
+## 3quater. Défaut trouvé en test — un sondage pouvait naître fermé
+
+`POST /api/sondages` acceptait un `closesAt` déjà dans le passé. Le sondage était alors mort-né :
+toute soumission repartait en 409 « Sondage clos ».
+
+Révélé par Swagger UI, qui préremplit `closesAt` avec un horodatage généré au rendu de la page —
+donc déjà dépassé au moment où l'on clique sur *Execute*. Deux sondages de test ont ainsi été créés
+avec une fermeture antérieure de quelques dizaines de secondes à leur propre création.
+
+Le diagnostic est venu de la comparaison `invitations redeemed` vs `réponses` par sondage : les deux
+à zéro alors qu'un 409 était retourné. Un 409 d'unicité aurait laissé `RedeemedAt` renseigné. C'est
+une conséquence utile de la séparation registre / réponses — on peut auditer par comptage sans
+jamais relier un participant à une réponse.
+
+Corrigé : `closesAt` antérieur à l'instant courant ⇒ 400 avec message explicite.
+
+**Reste ambigu, à décider** : « Sondage clos » et « Participation déjà enregistrée » renvoient tous
+deux 409, ils ne se distinguent que par le `detail`. Le 409 d'unicité étant *le* signal du livrable,
+il gagnerait à être le seul 409 de l'API — 403 conviendrait mieux au sondage clos.
+
+À porter dans le Requis 6 : validation des entrées. Une contrainte temporelle non validée à
+l'écriture produit un état inatteignable plutôt qu'une erreur, et le symptôme apparaît loin de la
+cause.
+
 ## 4. Vérification
 
 Contre une instance réelle (`dotnet run`, clé éphémère par variable d'environnement) :

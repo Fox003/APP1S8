@@ -43,9 +43,14 @@ internal sealed class ParticipantTokenSecuritySchemeTransformer
             return Task.CompletedTask;
         }
 
+        // La sécurité déclarée sur une opération REMPLACE celle du document (spec OpenAPI 3.0),
+        // elle ne s'y ajoute pas. Il faut donc redéclarer la clé d'API ici : sans cela Swagger
+        // génère des requêtes sans X-API-Key, que le middleware du livrable 1 rejette en 401.
+        // Deux schémas dans UNE même exigence = les deux sont requis.
         operation.Security ??= new List<OpenApiSecurityRequirement>();
         operation.Security.Add(new OpenApiSecurityRequirement
         {
+            [new OpenApiSecuritySchemeReference(ApiKeySecuritySchemeTransformer.SchemeName, context.Document)] = new List<string>(),
             [new OpenApiSecuritySchemeReference(SchemeName, context.Document)] = new List<string>()
         });
 

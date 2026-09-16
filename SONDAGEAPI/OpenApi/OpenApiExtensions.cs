@@ -14,6 +14,7 @@ public static class OpenApiExtensions
             options.AddDocumentTransformer<ApiKeySecuritySchemeTransformer>();
             options.AddDocumentTransformer<ParticipantTokenSecuritySchemeTransformer>();
             options.AddOperationTransformer<ParticipantTokenSecuritySchemeTransformer>();
+            options.AddSchemaTransformer<NumericUnionSchemaTransformer>();
         });
         return services;
     }
