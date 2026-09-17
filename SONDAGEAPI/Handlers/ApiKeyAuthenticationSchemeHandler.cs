@@ -32,7 +32,7 @@ public class ApiKeyAuthenticationSchemeHandler(
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, apiKey.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, apiKey.UserId.ToString()),
             new Claim(ClaimTypes.Name, $"ApiKey:{apiKey.Id}")
         };
         var identity = new ClaimsIdentity(claims, Scheme.Name);

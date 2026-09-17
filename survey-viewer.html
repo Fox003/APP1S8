@@ -161,6 +161,57 @@
   .choice-item.correct .text {
     font-weight: 600;
   }
+  .choice-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .choice-item input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .choice-item input[type="radio"]:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+  .choice-item input[type="radio"]:disabled:checked + .text,
+  .choice-item input[type="radio"]:disabled ~ .text {
+    color: var(--text);
+  }
+  .choice-item label:has(input:disabled) {
+    cursor: default;
+  }
+  .choice-item input[type="radio"]:checked:disabled {
+    accent-color: var(--accent);
+  }
+  .survey-submit-bar {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  #survey-submit-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #survey-submit-btn:hover { background: var(--accent-hover); }
+  #survey-submit-btn:disabled { opacity: 0.6; cursor: default; }
+  .survey-submit-status {
+    font-size: 13px;
+  }
+  .survey-submit-status.error { color: #c0392b; }
+  .survey-submit-status.success { color: #1a7f37; }
   #reload-btn {
     background: var(--accent);
     color: white;
@@ -391,6 +442,35 @@
     margin-top: 12px;
     display: none;
   }
+
+  /* Disabled / Completed Survey Styles */
+.survey-item.completed {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f0f0f3;
+  border-color: var(--border);
+}
+
+.survey-item.completed:hover {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-completed {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a7f37;
+  background-color: #dafbe1;
+  border: 1px solid #1a7f37;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
 </style>
 </head>
 <body>
@@ -815,6 +895,17 @@ registerForm.addEventListener("submit", async (e) => {
   }
 });
 
+async function getSubmissionForSurvey(id) {
+  try {
+    const res = await authFetch(`${API_BASE}/api/Survey/${id}/submission`);
+    if (res.status === 404) return null;
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
 async function loadSurveys() {
   listEl.innerHTML = "";
 
@@ -825,38 +916,58 @@ async function loadSurveys() {
 
   setStatus("Loading surveys...");
   try {
-    const res = await authFetch(`${API_BASE}/api/Survey`);
-    
-    if (res.status === 401 || res.status === 403) {
+    const surveysRes = await authFetch(`${API_BASE}/api/Survey`);
+
+    if (surveysRes.status === 401 || surveysRes.status === 403) {
       setStatus("Unauthorized (401). Your API Key or Token may be invalid. Click your Account icon in the top right to update your API key.", true);
       return;
     }
 
-    if (!res.ok) throw new Error(`Request failed (${res.status})`);
-    
-    let data = await res.json();
-    if (!Array.isArray(data)) data = data.items || data.data || data.surveys || [];
+    if (!surveysRes.ok) throw new Error(`Request failed (${surveysRes.status})`);
 
-    if (data.length === 0) {
+    let surveys = await surveysRes.json();
+    if (!Array.isArray(surveys)) surveys = surveys.items || surveys.data || surveys.surveys || [];
+
+    if (surveys.length === 0) {
       setStatus("No surveys found.");
       return;
     }
+
+    // Check submission status for every survey in parallel via the per-survey route
+    const submissionChecks = await Promise.all(
+      surveys.map(survey => {
+        const id = pick(survey, ["id", "surveyId", "Id", "SurveyId"]);
+        return getSubmissionForSurvey(id).then(sub => [id, sub]);
+      })
+    );
+    const submittedSurveyIds = new Map(submissionChecks.filter(([, sub]) => sub !== null));
+
     setStatus("");
 
-    data.forEach(survey => {
+    // Render survey list items with submission state checks
+    surveys.forEach(survey => {
       const id = pick(survey, ["id", "surveyId", "Id", "SurveyId"]);
       const title = pick(survey, ["title", "name", "surveyTitle", "Title", "Name"], "Untitled survey");
       const desc = pick(survey, ["description", "desc", "Description"], "");
+      const isCompleted = submittedSurveyIds.has(id);
 
       const li = document.createElement("li");
-      li.className = "survey-item";
+      li.className = "survey-item" + (isCompleted ? " completed" : "");
+      
       li.innerHTML = `
-        <div class="title"></div>
+        <div class="survey-header">
+          <div class="title"></div>
+          ${isCompleted ? '<span class="badge-completed">Completed</span>' : ''}
+        </div>
         <div class="desc"></div>
       `;
+      
       li.querySelector(".title").textContent = title;
       li.querySelector(".desc").textContent = desc;
+
+      // Completed surveys are still clickable, but open read-only
       li.addEventListener("click", () => loadSurveyDetail(id, title));
+
       listEl.appendChild(li);
     });
   } catch (err) {
@@ -881,7 +992,10 @@ async function loadSurveyDetail(id, fallbackTitle) {
   setStatus("Loading survey...");
 
   try {
-    const res = await authFetch(`${API_BASE}/api/Survey/${id}`);
+    const [res, existingSubmission] = await Promise.all([
+      authFetch(`${API_BASE}/api/Survey/${id}`),
+      getSubmissionForSurvey(id)
+    ]);
     if (!res.ok) throw new Error(`Request failed (${res.status})`);
     const survey = await res.json();
 
@@ -889,6 +1003,21 @@ async function loadSurveyDetail(id, fallbackTitle) {
     const desc = pick(survey, ["description", "desc", "Description"], "");
     let questions = pick(survey, ["questions", "Questions"], []);
     if (!Array.isArray(questions)) questions = [];
+
+    console.log("Survey detail response:", survey);
+
+    const isReadOnly = existingSubmission !== null;
+    let existingAnswers = new Map();
+    if (isReadOnly) {
+      let answersArr = pick(existingSubmission, ["answers", "Answers"], []);
+      if (!Array.isArray(answersArr)) answersArr = [];
+      existingAnswers = new Map(
+        answersArr.map(a => [
+          String(pick(a, ["questionId", "QuestionId"])),
+          pick(a, ["value", "Value"])
+        ])
+      );
+    }
 
     setStatus("");
 
@@ -903,6 +1032,14 @@ async function loadSurveyDetail(id, fallbackTitle) {
       detailEl.appendChild(descEl);
     }
 
+    if (isReadOnly) {
+      const banner = document.createElement("div");
+      banner.className = "survey-submit-status success";
+      banner.style.marginBottom = "12px";
+      banner.textContent = "You've already submitted this survey. Showing your answers (read-only).";
+      detailEl.appendChild(banner);
+    }
+
     const ul = document.createElement("ul");
     ul.className = "question-list";
 
@@ -915,6 +1052,7 @@ async function loadSurveyDetail(id, fallbackTitle) {
       questions.forEach((q, i) => {
         const text = pick(q, ["text", "questionText", "title", "Text", "QuestionText", "Title"], "(untitled question)");
         const type = pick(q, ["type", "questionType", "Type", "QuestionType"], "");
+        const questionId = pick(q, ["id", "questionId", "Id", "QuestionId"], `q${i}`);
         let choices = pick(q, ["choices", "options", "answers", "answerChoices", "Choices", "Options", "Answers", "AnswerChoices"], []);
         if (!Array.isArray(choices)) choices = [];
 
@@ -931,20 +1069,41 @@ async function loadSurveyDetail(id, fallbackTitle) {
         if (type) li.querySelector(".type").textContent = type;
 
         if (choices.length > 0) {
+          const radioName = `survey-question-${questionId}`;
+          const selectedValue = isReadOnly ? existingAnswers.get(String(questionId)) : undefined;
           const choiceUl = document.createElement("ul");
           choiceUl.className = "choice-list";
-          choices.forEach(c => {
+          choices.forEach((c, ci) => {
             const choiceText = typeof c === "string"
               ? c
               : pick(c, ["text", "label", "choiceText", "optionText", "value", "Text", "Label", "ChoiceText", "OptionText"], "(option)");
-            const isCorrect = typeof c === "object" && c !== null
-              ? !!pick(c, ["isCorrect", "correct", "IsCorrect", "Correct"], false)
-              : false;
 
             const choiceLi = document.createElement("li");
-            choiceLi.className = "choice-item" + (isCorrect ? " correct" : "");
-            choiceLi.innerHTML = `<span class="bullet"></span><span class="text"></span>`;
-            choiceLi.querySelector(".text").textContent = choiceText;
+            choiceLi.className = "choice-item";
+
+            const radioId = `${radioName}-${ci}`;
+            const label = document.createElement("label");
+            label.setAttribute("for", radioId);
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = radioName;
+            radio.id = radioId;
+            radio.value = ci;
+            radio.dataset.questionId = questionId;
+            radio.dataset.choiceValue = ci;
+            if (isReadOnly) {
+              radio.disabled = true;
+              if (Number(selectedValue) === ci) radio.checked = true;
+            }
+
+            const textSpan = document.createElement("span");
+            textSpan.className = "text";
+            textSpan.textContent = choiceText;
+
+            label.appendChild(radio);
+            label.appendChild(textSpan);
+            choiceLi.appendChild(label);
             choiceUl.appendChild(choiceLi);
           });
           li.querySelector(".body").appendChild(choiceUl);
@@ -953,9 +1112,99 @@ async function loadSurveyDetail(id, fallbackTitle) {
         ul.appendChild(li);
       });
       detailEl.appendChild(ul);
+
+      if (questions.length > 0 && !isReadOnly) {
+        const submitBar = document.createElement("div");
+        submitBar.className = "survey-submit-bar";
+        submitBar.innerHTML = `
+          <button id="survey-submit-btn">Submit survey</button>
+          <span id="survey-submit-status" class="survey-submit-status"></span>
+        `;
+        detailEl.appendChild(submitBar);
+
+        document.getElementById("survey-submit-btn").addEventListener("click", () => {
+          submitSurvey(id, questions);
+        });
+      }
     }
   } catch (err) {
     setStatus(`Couldn't load this survey. (${err.message})`, true);
+  }
+}
+
+async function submitSurvey(surveyId, questions) {
+  const submitBtn = document.getElementById("survey-submit-btn");
+  const submitStatus = document.getElementById("survey-submit-status");
+
+  const GUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  const answers = questions.map((q, i) => {
+    const questionId = pick(q, ["id", "questionId", "Id", "QuestionId"], `q${i}`);
+    const radioName = `survey-question-${questionId}`;
+    const checked = document.querySelector(`input[name="${CSS.escape(radioName)}"]:checked`);
+    return {
+      questionId,
+      value: checked ? Number(checked.dataset.choiceValue) : null
+    };
+  });
+
+  const unanswered = answers.filter(a => a.value === null).length;
+  if (unanswered > 0) {
+    submitStatus.textContent = `Please answer all questions (${unanswered} left).`;
+    submitStatus.className = "survey-submit-status error";
+    return;
+  }
+
+  const badIds = answers.filter(a => !GUID_RE.test(String(a.questionId)));
+  if (badIds.length > 0 || !GUID_RE.test(String(surveyId))) {
+    console.error("Non-GUID question ids detected. Answers payload:", answers, "surveyId:", surveyId);
+    submitStatus.textContent = "Couldn't submit: question IDs from the API don't look like GUIDs. Check the browser console for details.";
+    submitStatus.className = "survey-submit-status error";
+    return;
+  }
+
+  if (!getApiKey()) {
+    submitStatus.textContent = "Enter your API key (Account icon, top right) before submitting.";
+    submitStatus.className = "survey-submit-status error";
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
+  submitStatus.textContent = "";
+  submitStatus.className = "survey-submit-status";
+
+  try {
+    const res = await authFetch(`${API_BASE}/api/Survey/submissions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        surveyId,
+        answers: answers.map(a => ({ questionId: a.questionId, value: a.value }))
+      })
+    });
+
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch { /* not JSON */ }
+
+    if (!res.ok) {
+      const msg = pick(data, ["message", "error", "title", "Message", "Error", "Title"], `Submission failed (${res.status})`);
+      throw new Error(msg);
+    }
+
+    submitStatus.textContent = "Survey submitted!";
+    submitStatus.className = "survey-submit-status success";
+    submitBtn.textContent = "Submitted";
+
+    setTimeout(() => {
+      showList();
+    }, 700);
+  } catch (err) {
+    submitStatus.textContent = `Couldn't submit. (${err.message})`;
+    submitStatus.className = "survey-submit-status error";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit survey";
   }
 }
 

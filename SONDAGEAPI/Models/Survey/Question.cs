@@ -1,4 +1,4 @@
-namespace SONDAGEAPI.Models;
+namespace SONDAGEAPI.Models.Survey;
 
 public class Question
 {

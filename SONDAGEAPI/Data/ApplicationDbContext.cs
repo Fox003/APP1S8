@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SONDAGEAPI.Models.Survey;
 
 namespace SONDAGEAPI.Data;
 
@@ -13,6 +14,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<ApiKey> ApiKeys { get; set; }
+    public DbSet<SurveySubmission> SurveySubmissions { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
