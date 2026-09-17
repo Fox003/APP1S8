@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Livrable 5 — configuration de la mesure de couverture.
+
+  Le script couverture.ps1 passe ce fichier au collecteur coverlet, via les
+  options «collect» (XPlat Code Coverage) et «settings» de dotnet test.
+
+  Ce que le périmètre exclut, et pourquoi :
+    * Include        seul l'assembly SONDAGEAPI est mesuré. Couvrir le projet de
+                     tests lui-même gonflerait artificiellement le résultat.
+    * Migrations/    code généré par `dotnet ef`, réécrit à chaque migration. Le
+                     mesurer reviendrait à mesurer EF Core, et la moindre migration
+                     ferait chuter le taux sans qu'une ligne écrite à la main change.
+    * obj/           fichiers produits par les générateurs de source.
+    * SkipAutoProps  les propriétés auto-implémentées des modèles et des DTO n'ont
+                     pas de logique à couvrir.
+-->
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Include>[SONDAGEAPI]*</Include>
+          <ExcludeByFile>**/Migrations/*.cs,**/obj/**/*.cs</ExcludeByFile>
+          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
+          <SkipAutoProps>true</SkipAutoProps>
+          <UseSourceLink>false</UseSourceLink>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
