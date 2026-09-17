@@ -6,7 +6,7 @@ namespace SONDAGEAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+[Authorize(AuthenticationSchemes = "ApiKey")]
 public class ProductsController(IProductService productService) : ControllerBase
 {
     [HttpGet("{id:int}")]

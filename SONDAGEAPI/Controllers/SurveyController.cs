@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SONDAGEAPI.DTOs;
 using SONDAGEAPI.Services;
@@ -6,6 +7,7 @@ namespace SONDAGEAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "ApiKey")]
 public class SurveyController(ISurveyService surveyService) : ControllerBase
 {
     [HttpGet("{id:guid}")]

@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Question> Questions { get; set; }
+    public DbSet<ApiKey> ApiKeys { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

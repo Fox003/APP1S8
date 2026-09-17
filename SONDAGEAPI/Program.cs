@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using SONDAGEAPI.Data;
+using SONDAGEAPI.Handlers;
+using SONDAGEAPI.Schemes;
 using SONDAGEAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +43,17 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+// Source - https://stackoverflow.com/a/75059938
+// Posted by SergVro
+// Retrieved 2026-09-17, License - CC BY-SA 4.0
+
+builder.Services.AddAuthentication("ApiKey")
+    .AddScheme<ApiKeyAuthenticationSchemeOptions, ApiKeyAuthenticationSchemeHandler>(
+        "ApiKey",
+        opts => {}
+    );
+
+
 builder.Services.AddControllers();
 
 // Add services to the container.
@@ -58,9 +71,18 @@ builder.Services.AddSwaggerGen(options =>
         Description = "JWT Authorization header using the Bearer scheme."
     });
 
+    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.ApiKey,
+        In = ParameterLocation.Header,
+        Name = "X-API-KEY",
+        Description = "API key needed to access the endpoints. Enter your key below."
+    });
+
     options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
     {
-        [new OpenApiSecuritySchemeReference("bearer", document)] = []
+        [new OpenApiSecuritySchemeReference("bearer", document)] = [],
+        [new OpenApiSecuritySchemeReference("ApiKey", document)] = []
     });
 });
 

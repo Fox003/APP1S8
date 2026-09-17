@@ -55,7 +55,6 @@ public class AuthControllerTest
         var expectedResponse = new SONDAGEAPI.Models.LoginResponse
         {
             AccessToken = "fake-valid-access-token",
-            RefreshToken = "fake-valid-refresh-token"
         };
 
         mockAuthService
@@ -72,7 +71,6 @@ public class AuthControllerTest
         var loginResponse = Assert.IsType<SONDAGEAPI.Models.LoginResponse>(okResult.Value);
 
         Assert.Equal(expectedResponse.AccessToken, loginResponse.AccessToken);
-        Assert.Equal(expectedResponse.RefreshToken, loginResponse.RefreshToken);
     }
     
     [Fact]

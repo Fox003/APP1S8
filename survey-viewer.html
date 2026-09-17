@@ -171,27 +171,347 @@
     cursor: pointer;
   }
   #reload-btn:hover { background: var(--accent-hover); }
+  header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #logout-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  #logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* User menu (icon + username) */
+  #user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 4px 10px 4px 4px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+  }
+  #user-btn:hover {
+    border-color: var(--border);
+    background: var(--bg);
+  }
+  #user-btn .user-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  #user-btn .username {
+    font-weight: 500;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* API key page */
+  #apikey-view { display: none; }
+  #apikey-view main {
+    max-width: 480px;
+  }
+  .apikey-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .apikey-card h2 {
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+  .apikey-card .sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .apikey-card label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .apikey-card input {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .apikey-card input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .apikey-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .apikey-actions button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #apikey-save {
+    background: var(--accent);
+    color: #fff;
+    flex: 1;
+  }
+  #apikey-save:hover { background: var(--accent-hover); }
+  #apikey-clear {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  #apikey-clear:hover { border-color: #c0392b; color: #c0392b; }
+  .apikey-status {
+    font-size: 13px;
+    margin-top: 14px;
+    display: none;
+  }
+  .apikey-status.success { color: #1a7f37; display: block; }
+  .apikey-status.error { color: #c0392b; display: block; }
+  .apikey-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+
+  /* Login / Register pages */
+  #login-view, #register-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  .login-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 340px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .login-card h1 {
+    font-size: 20px;
+    margin: 0 0 4px;
+  }
+  .login-card .sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .login-card label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .login-card input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .login-card button {
+    width: 100%;
+    margin-top: 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .login-card button:hover { background: var(--accent-hover); }
+  .login-card button:disabled { opacity: 0.6; cursor: default; }
+  .login-error {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .login-hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+  .login-switch {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 18px;
+  }
+  .login-switch a {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .login-switch a:hover { text-decoration: underline; }
+  .login-success {
+    color: #1a7f37;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Surveys</h1>
-  <div>
-    <span class="api-base">localhost:5263</span>
-    <button id="reload-btn" onclick="loadSurveys()">Refresh</button>
+<div id="login-view">
+  <div class="login-card">
+    <h1>Sign in</h1>
+    <div class="sub">Log in to view surveys at localhost:5263</div>
+    <form id="login-form">
+      <label for="login-username">Username</label>
+      <input id="login-username" type="text" autocomplete="username" required />
+      <label for="login-password">Password</label>
+      <input id="login-password" type="password" autocomplete="current-password" required />
+      <button id="login-submit" type="submit">Log in</button>
+      <div id="login-error" class="login-error"></div>
+      <div id="login-success" class="login-success"></div>
+    </form>
+    <div class="login-switch">
+      Don't have an account? <a onclick="showRegister()">Register</a>
+    </div>
+    <div class="login-hint">
+      If login fails, your API's field names might differ &mdash; check the console for the raw request/response.
+    </div>
   </div>
-</header>
+</div>
 
-<main>
-  <button id="back-btn" onclick="showList()">&larr; Back to surveys</button>
-  <div id="status" class="status"></div>
-  <ul id="survey-list" class="survey-list"></ul>
-  <div id="survey-detail" class="survey-detail" style="display:none;"></div>
-</main>
+<div id="register-view" style="display:none;">
+  <div class="login-card">
+    <h1>Create an account</h1>
+    <div class="sub">Register to access surveys at localhost:5263</div>
+    <form id="register-form">
+      <label for="register-username">Username</label>
+      <input id="register-username" type="text" autocomplete="username" required />
+      <label for="register-email">Email</label>
+      <input id="register-email" type="email" autocomplete="email" />
+      <label for="register-password">Password</label>
+      <input id="register-password" type="password" autocomplete="new-password" required />
+      <label for="register-confirm">Confirm password</label>
+      <input id="register-confirm" type="password" autocomplete="new-password" required />
+      <button id="register-submit" type="submit">Register</button>
+      <div id="register-error" class="login-error"></div>
+    </form>
+    <div class="login-switch">
+      Already have an account? <a onclick="showLoginFromRegister()">Log in</a>
+    </div>
+    <div class="login-hint">
+      If registration fails, your API's field names might differ &mdash; check the console for the raw request/response.
+    </div>
+  </div>
+</div>
+
+<div id="app-view" style="display:none;">
+  <header>
+    <h1>Surveys</h1>
+    <div class="header-right">
+      <span class="api-base">localhost:5263</span>
+      <button id="reload-btn" onclick="loadSurveys()">Refresh</button>
+      <button id="user-btn" onclick="showApiKeyView()">
+        <span class="user-icon" id="user-icon-initial">?</span>
+        <span class="username" id="user-btn-name">Account</span>
+      </button>
+      <button id="logout-btn" onclick="logout()">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <button id="back-btn" onclick="showList()">&larr; Back to surveys</button>
+    <div id="status" class="status"></div>
+    <ul id="survey-list" class="survey-list"></ul>
+    <div id="survey-detail" class="survey-detail" style="display:none;"></div>
+  </main>
+</div>
+
+<div id="apikey-view" style="display:none;">
+  <header>
+    <h1>API Key</h1>
+    <div class="header-right">
+      <span class="api-base">localhost:5263</span>
+    </div>
+  </header>
+  <main>
+    <button id="apikey-back-btn" onclick="hideApiKeyView()" style="display:inline-block; background:none; border:none; color:var(--accent); font-size:14px; cursor:pointer; margin-bottom:16px; padding:0;">&larr; Back to surveys</button>
+    <div class="apikey-card">
+      <h2>Your API key</h2>
+      <div class="sub">Used to authenticate requests to the survey API.</div>
+      <label for="apikey-input">API key</label>
+      <input id="apikey-input" type="password" autocomplete="off" placeholder="Enter your API key" />
+      <div class="apikey-actions">
+        <button id="apikey-save" onclick="saveApiKey()">Save</button>
+        <button id="apikey-clear" onclick="clearApiKeyField()">Clear</button>
+      </div>
+      <div id="apikey-status" class="apikey-status"></div>
+      <div class="apikey-hint">
+        The key is stored in this browser and sent as an <code>X-Api-Key</code> header on every survey request.
+      </div>
+    </div>
+  </main>
+</div>
 
 <script>
 const API_BASE = "http://localhost:5263";
+const TOKEN_KEY = "survey_app_token";
+const REFRESH_TOKEN_KEY = "survey_app_refresh_token";
+const USERNAME_KEY = "survey_app_username";
+const API_KEY_KEY = "survey_app_api_key";
+
+const loginView = document.getElementById("login-view");
+const registerView = document.getElementById("register-view");
+const appView = document.getElementById("app-view");
+const apiKeyView = document.getElementById("apikey-view");
+const userBtnName = document.getElementById("user-btn-name");
+const userIconInitial = document.getElementById("user-icon-initial");
+const apiKeyInput = document.getElementById("apikey-input");
+const apiKeyStatus = document.getElementById("apikey-status");
+const loginForm = document.getElementById("login-form");
+const loginSubmit = document.getElementById("login-submit");
+const loginError = document.getElementById("login-error");
+const loginSuccess = document.getElementById("login-success");
+const registerForm = document.getElementById("register-form");
+const registerSubmit = document.getElementById("register-submit");
+const registerError = document.getElementById("register-error");
 
 const statusEl = document.getElementById("status");
 const listEl = document.getElementById("survey-list");
@@ -210,7 +530,6 @@ function showList() {
   loadSurveys();
 }
 
-// Pull a readable value out of an object trying several likely field names.
 function pick(obj, keys, fallback) {
   for (const k of keys) {
     if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "") {
@@ -220,12 +539,301 @@ function pick(obj, keys, fallback) {
   return fallback;
 }
 
+// --- Auth helpers -----------------------------------------------------
+
+function getToken() { return localStorage.getItem(TOKEN_KEY); }
+function setToken(token) { localStorage.setItem(TOKEN_KEY, token); }
+function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+function getRefreshToken() { return localStorage.getItem(REFRESH_TOKEN_KEY); }
+function setRefreshToken(token) { localStorage.setItem(REFRESH_TOKEN_KEY, token); }
+function clearRefreshToken() { localStorage.removeItem(REFRESH_TOKEN_KEY); }
+
+function getUsername() { return localStorage.getItem(USERNAME_KEY) || ""; }
+function setUsername(username) { if (username) localStorage.setItem(USERNAME_KEY, username); }
+function clearUsername() { localStorage.removeItem(USERNAME_KEY); }
+
+function getApiKey() { return localStorage.getItem(API_KEY_KEY) || ""; }
+function setApiKey(key) { localStorage.setItem(API_KEY_KEY, key); }
+function clearApiKey() { localStorage.removeItem(API_KEY_KEY); }
+
+function updateUserButton() {
+  const username = getUsername() || "Account";
+  userBtnName.textContent = username;
+  userIconInitial.textContent = username.trim().charAt(0).toUpperCase() || "?";
+}
+
+function showApiKeyView() {
+  loginView.style.display = "none";
+  registerView.style.display = "none";
+  appView.style.display = "none";
+  apiKeyView.style.display = "block";
+  apiKeyStatus.style.display = "none";
+  apiKeyInput.value = getApiKey();
+}
+
+function hideApiKeyView() {
+  apiKeyView.style.display = "none";
+  appView.style.display = "block";
+}
+
+function saveApiKey() {
+  const value = apiKeyInput.value.trim();
+  if (!value) {
+    apiKeyStatus.textContent = "Enter a key before saving.";
+    apiKeyStatus.className = "apikey-status error";
+    return;
+  }
+  setApiKey(value);
+  apiKeyStatus.textContent = "API key saved.";
+  apiKeyStatus.className = "apikey-status success";
+
+  setTimeout(() => {
+    showApp();
+  }, 300);
+}
+
+function clearApiKeyField() {
+  clearApiKey();
+  apiKeyInput.value = "";
+  apiKeyStatus.textContent = "API key cleared.";
+  apiKeyStatus.className = "apikey-status success";
+}
+
+function showLogin() {
+  appView.style.display = "none";
+  registerView.style.display = "none";
+  loginView.style.display = "flex";
+}
+
+function showRegister() {
+  loginView.style.display = "none";
+  appView.style.display = "none";
+  registerView.style.display = "flex";
+}
+
+function showLoginFromRegister() {
+  registerError.style.display = "none";
+  registerForm.reset();
+  showLogin();
+}
+
+function showApp() {
+  loginView.style.display = "none";
+  registerView.style.display = "none";
+  apiKeyView.style.display = "none";
+  appView.style.display = "block";
+  updateUserButton();
+  loadSurveys();
+}
+
+function logout() {
+  clearToken();
+  clearRefreshToken();
+  clearUsername();
+  clearApiKey();
+  showLogin();
+}
+
+let refreshInFlight = null;
+
+async function tryRefreshAccessToken() {
+  if (refreshInFlight) return refreshInFlight;
+
+  refreshInFlight = (async () => {
+    const refreshToken = getRefreshToken();
+    if (!refreshToken) return false;
+
+    try {
+      const res = await fetch(`${API_BASE}/api/Auth/refresh`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken, refresh_token: refreshToken })
+      });
+
+      if (!res.ok) return false;
+
+      const raw = await res.text();
+      let data = {};
+      try { data = raw ? JSON.parse(raw) : {}; } catch { /* not JSON */ }
+
+      const newAccessToken = pick(data, ["accessToken", "token", "jwt", "access_token", "AccessToken", "Token", "Jwt"]);
+      if (!newAccessToken) return false;
+      setToken(newAccessToken);
+
+      const newRefreshToken = pick(data, ["refreshToken", "refresh_token", "RefreshToken"]);
+      if (newRefreshToken) setRefreshToken(newRefreshToken);
+
+      return true;
+    } catch (err) {
+      console.warn("Refresh token request failed:", err);
+      return false;
+    }
+  })();
+
+  const result = await refreshInFlight;
+  refreshInFlight = null;
+  return result;
+}
+
+async function authFetch(url, options = {}) {
+  const doFetch = () => {
+    const token = getToken();
+    const apiKey = getApiKey();
+    const headers = { ...(options.headers || {}) };
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+    if (apiKey) headers["X-Api-Key"] = apiKey;
+    return fetch(url, { ...options, headers });
+  };
+
+  let res = await doFetch();
+
+  // If token expired, try refreshing
+  if (res.status === 401 || res.status === 403) {
+    const refreshed = await tryRefreshAccessToken();
+    if (refreshed) {
+      res = await doFetch();
+    }
+  }
+  return res;
+}
+
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  loginError.style.display = "none";
+  loginSuccess.style.display = "none";
+  loginSubmit.disabled = true;
+  loginSubmit.textContent = "Signing in...";
+
+  const username = document.getElementById("login-username").value.trim();
+  const password = document.getElementById("login-password").value;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/Auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, userName: username, password })
+    });
+
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch { /* not JSON */ }
+
+    if (!res.ok) {
+      const msg = pick(data, ["message", "error", "title", "Message", "Error", "Title"], `Login failed (${res.status})`);
+      throw new Error(msg);
+    }
+
+    const token = pick(data, ["token", "accessToken", "jwt", "access_token", "Token", "AccessToken", "Jwt"]) ||
+                  pick(data.data || {}, ["token", "accessToken", "jwt", "access_token"]);
+
+    if (!token) throw new Error("Logged in, but couldn't find a token in the response.");
+
+    setToken(token);
+    setUsername(username);
+
+    const newRefreshToken = pick(data, ["refreshToken", "refresh_token", "RefreshToken"]) ||
+                             pick(data.data || {}, ["refreshToken", "refresh_token"]);
+    if (newRefreshToken) setRefreshToken(newRefreshToken);
+
+    loginForm.reset();
+    showApp();
+  } catch (err) {
+    loginError.textContent = err.message;
+    loginError.style.display = "block";
+  } finally {
+    loginSubmit.disabled = false;
+    loginSubmit.textContent = "Log in";
+  }
+});
+
+registerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  registerError.style.display = "none";
+
+  const username = document.getElementById("register-username").value.trim();
+  const email = document.getElementById("register-email").value.trim();
+  const password = document.getElementById("register-password").value;
+  const confirmPassword = document.getElementById("register-confirm").value;
+
+  if (password !== confirmPassword) {
+    registerError.textContent = "Passwords don't match.";
+    registerError.style.display = "block";
+    return;
+  }
+
+  registerSubmit.disabled = true;
+  registerSubmit.textContent = "Creating account...";
+
+  try {
+    const res = await fetch(`${API_BASE}/api/Auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        userName: username,
+        email,
+        password,
+        confirmPassword,
+        ConfirmPassword: confirmPassword
+      })
+    });
+
+    const raw = await res.text();
+    let data = {};
+    try { data = raw ? JSON.parse(raw) : {}; } catch { /* not JSON */ }
+
+    if (!res.ok) {
+      const msg = pick(data, ["message", "error", "title", "Message", "Error", "Title"], `Registration failed (${res.status})`);
+      throw new Error(msg);
+    }
+
+    const token = pick(data, ["token", "accessToken", "jwt", "access_token", "Token", "AccessToken", "Jwt"]) ||
+                  pick(data.data || {}, ["token", "accessToken", "jwt", "access_token"]);
+
+    if (token) {
+      setToken(token);
+      setUsername(username);
+      const refreshToken = pick(data, ["refreshToken", "refresh_token", "RefreshToken"]) ||
+                            pick(data.data || {}, ["refreshToken", "refresh_token"]);
+      if (refreshToken) setRefreshToken(refreshToken);
+      registerForm.reset();
+      showApp();
+    } else {
+      registerForm.reset();
+      document.getElementById("login-username").value = username;
+      loginSuccess.textContent = "Account created — you can log in now.";
+      loginSuccess.style.display = "block";
+      showLogin();
+    }
+  } catch (err) {
+    registerError.textContent = err.message;
+    registerError.style.display = "block";
+  } finally {
+    registerSubmit.disabled = false;
+    registerSubmit.textContent = "Register";
+  }
+});
+
 async function loadSurveys() {
   listEl.innerHTML = "";
+
+  if (!getApiKey()) {
+    setStatus("Enter your API key (click your Account icon in the top right) to view surveys.", true);
+    return;
+  }
+
   setStatus("Loading surveys...");
   try {
-    const res = await fetch(`${API_BASE}/api/Survey`);
+    const res = await authFetch(`${API_BASE}/api/Survey`);
+    
+    if (res.status === 401 || res.status === 403) {
+      setStatus("Unauthorized (401). Your API Key or Token may be invalid. Click your Account icon in the top right to update your API key.", true);
+      return;
+    }
+
     if (!res.ok) throw new Error(`Request failed (${res.status})`);
+    
     let data = await res.json();
     if (!Array.isArray(data)) data = data.items || data.data || data.surveys || [];
 
@@ -253,7 +861,7 @@ async function loadSurveys() {
     });
   } catch (err) {
     setStatus(
-      `Couldn't reach the API at ${API_BASE}. Make sure the server is running and CORS is enabled. (${err.message})`,
+      `Couldn't reach the API at ${API_BASE}. (${err.message})`,
       true
     );
   }
@@ -264,10 +872,16 @@ async function loadSurveyDetail(id, fallbackTitle) {
   detailEl.style.display = "block";
   backBtn.style.display = "inline-block";
   detailEl.innerHTML = "";
+
+  if (!getApiKey()) {
+    setStatus("Hey! Enter your API key (click your Account icon in the top right) to view survey details.", true);
+    return;
+  }
+
   setStatus("Loading survey...");
 
   try {
-    const res = await fetch(`${API_BASE}/api/Survey/${id}`);
+    const res = await authFetch(`${API_BASE}/api/Survey/${id}`);
     if (!res.ok) throw new Error(`Request failed (${res.status})`);
     const survey = await res.json();
 
@@ -320,7 +934,6 @@ async function loadSurveyDetail(id, fallbackTitle) {
           const choiceUl = document.createElement("ul");
           choiceUl.className = "choice-list";
           choices.forEach(c => {
-            // Choices may just be plain strings, or objects with a text field.
             const choiceText = typeof c === "string"
               ? c
               : pick(c, ["text", "label", "choiceText", "optionText", "value", "Text", "Label", "ChoiceText", "OptionText"], "(option)");
@@ -346,7 +959,12 @@ async function loadSurveyDetail(id, fallbackTitle) {
   }
 }
 
-loadSurveys();
+// On load: go straight to the app if we already have a token, else show login.
+if (getToken()) {
+  showApp();
+} else {
+  showLogin();
+}
 </script>
 
 </body>

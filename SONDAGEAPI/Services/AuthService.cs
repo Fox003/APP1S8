@@ -12,29 +12,37 @@ public class AuthService(ApplicationDbContext db, ITokenService tokenService) : 
         {
             return null;
         }
-        
+
         var user = await db.Users.FirstOrDefaultAsync(u => u.Username == username);
 
         if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             return null;
 
         var accessToken = tokenService.GenerateJwtToken(user);
-        var refreshToken = tokenService.GenerateRefreshToken();
+        
+        var hasLiveRefreshToken = await db.RefreshTokens
+            .AnyAsync(rt => rt.UserId == user.Id && rt.ExpiresAt > DateTime.UtcNow);
 
-        db.RefreshTokens.Add(new RefreshToken
+        string? refreshToken = null;
+
+        if (!hasLiveRefreshToken)
         {
-            TokenHash = tokenService.HashToken(refreshToken),
-            UserId = user.Id,
-            CreatedAt = DateTime.UtcNow,
-            ExpiresAt = DateTime.UtcNow.AddDays(7)
-        });
+            refreshToken = tokenService.GenerateRefreshToken();
 
-        await db.SaveChangesAsync();
+            db.RefreshTokens.Add(new RefreshToken
+            {
+                TokenHash = tokenService.HashToken(refreshToken),
+                UserId = user.Id,
+                CreatedAt = DateTime.UtcNow,
+                ExpiresAt = DateTime.UtcNow.AddDays(7)
+            });
+
+            await db.SaveChangesAsync();
+        }
 
         return new LoginResponse
         {
             AccessToken = accessToken,
-            RefreshToken = refreshToken
         };
     }
 
