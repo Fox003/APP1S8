@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -113,4 +114,5 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-record PingResponse(string Status, DateTime Timestamp);
+[ExcludeFromCodeCoverage]
+public partial class Program { }
