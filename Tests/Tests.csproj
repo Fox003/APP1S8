@@ -6,6 +6,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <TestingPlatformDotnetTestSupport>false</TestingPlatformDotnetTestSupport>
+    <UserSecretsId>4254db3e-1504-4e36-9e71-bb226772f91a</UserSecretsId>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(CollectCoverage)' == 'true'">

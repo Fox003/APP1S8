@@ -43,7 +43,7 @@ tooling decisions in the Status column here; there is no separate dependency doc
 | 7 | **In-code security mechanisms** — stack execution prevention, VS hardening options | build config | Not started. NX/DEP, ASLR, CFG — csproj/linker properties, not library code |
 | 8 | **Code protection by obfuscation** + the configuration used | code + doc | `Obfuscar.GlobalTool` 2.2.50 installed globally (`obfuscar.console`); no `obfuscar.xml` yet |
 | 9 | **Operational recommendations** (system architecture) | document | Not started |
-| 10 | **CycloneDX SBOM** report | artifact | `dotnet-CycloneDX` **not installed** |
+| 10 | **CycloneDX SBOM** report | artifact | `cyclonedx` **6.2.0 installed** (2026-09-18) as a local tool in the root `.config/dotnet-tools.json`, alongside ReportGenerator. Not yet run against `SONDAGEAPI.slnx`; report itself not generated |
 | 11 | **Security bug identification and publication process** | document | Not started; conventionally a `SECURITY.md` |
 
 Roughly half the grade is documents (6, 9, 11, plus the written half of 8), so budget time for them
@@ -195,8 +195,10 @@ resolved; what remains is either shared-repo hygiene or material for the written
    is the source of truth. Needs `git rm --cached SONDAGEAPI/app.db SONDAGEAPI/app.db-shm
    SONDAGEAPI/app.db-wal` — but F-O pushed the DB deliberately (commit `75bce66`), so agree with him
    first and make sure any seed data he wants lives in a migration or a seeding routine.
-6. **Packages required by later livrables are missing:** the `CycloneDX` global tool (livrable 10).
-   `Microsoft.AspNetCore.Authentication.JwtBearer` is **not** needed by the token implementation of
+6. ~~**Packages required by later livrables are missing:** the `CycloneDX` global tool (livrable
+   10).~~ Resolved 2026-09-18: installed as a local tool (`cyclonedx` 6.2.0) via the root
+   `.config/dotnet-tools.json` — see #10 above; the report itself still needs to be generated and
+   committed as the artifact. `Microsoft.AspNetCore.Authentication.JwtBearer` is **not** needed by the token implementation of
    livrable 4 — it uses only the framework's built-in `AuthenticationHandler`. F-O's JWT branch
    needs it; whether it ever lands depends on which implementation the team keeps.
 7. ~~**Template cruft.**~~ Cleared 2026-09-15: `/weatherforecast` and the `WeatherForecast` record

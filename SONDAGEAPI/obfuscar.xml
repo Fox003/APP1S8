@@ -1,0 +1,16 @@
+﻿<?xml version='1.0'?>
+<Obfuscator>
+	<Var name="OutPath" value="obfuscated" />
+  <Var name="KeepPublicApi" value="false" />
+  <Var name="HidePrivateApi" value="true" />
+  <Var name="RenameProperties" value="true" />
+  <Var name="RenameEvents" value="true" />
+  <Var name="RenameFields" value="true" />
+  <Var name="UseUnicodeNames" value="true" />
+  <Var name="HideStrings" value="true" />
+  <Var name="OptimizeMethods" value="true" />
+  <Var name="SuppressIldasm" value="true" />
+  
+  <AssemblySearchPath path="C:\Users\Maxime\Documents\GitHub\APP1S8\SONDAGEAPI\bin\Release\net10.0"/>
+	<Module file="SONDAGEAPI.dll" />
+</Obfuscator>

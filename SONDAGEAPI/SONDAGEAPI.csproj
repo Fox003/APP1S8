@@ -14,11 +14,32 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Obfuscar" Version="3.0.0-beta.21">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
   
   <ItemGroup>
     <InternalsVisibleTo Include="Tests" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="obfuscar.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'AOT'">
+    <PropertyGroup>
+      <_ObfuscarConfig>$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)obfuscar.xml'))</_ObfuscarConfig>
+    </PropertyGroup>
+    <Copy SourceFiles="$(ProjectDir)obfuscar.xml" DestinationFiles="$(_ObfuscarConfig)" />
+    <XmlPoke XmlInputPath="$(_ObfuscarConfig)" Query="/Obfuscator/Var[@name='OutPath']/@value" Value="$(TargetDir)obfuscated" />
+    <XmlPoke XmlInputPath="$(_ObfuscarConfig)" Query="/Obfuscator/Module/@file" Value="$(TargetPath)" />
+    <Exec WorkingDirectory="$(TargetDir)" Command="&quot;$(PkgObfuscar)\tools\Obfuscar.Console.exe&quot; &quot;$(_ObfuscarConfig)&quot;" />
+  </Target>
+
 
 </Project>
