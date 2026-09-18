@@ -20,19 +20,14 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseSondageOpenApi();
 
-// Couche 1 (livrable 1) : la clé d'API autorise un client à parler à l'API.
+// Livrable 1 : la clé d'API autorise l'API
 app.UseApiKeyAuthentication();
 
-// Couche 2 (livrable 4) : le jeton identifie UN participant.
-// Deux mécanismes distincts : les fusionner donnerait au participant
-// la clé qui ouvre toute l'API.
+// Livrable 4 : le token identifie un participant.
 app.UseAuthentication();
 app.UseAuthorization();
 
-// ---------------------------------------------------------------------------
-// Administration des sondages — clé d'API seulement
-// ---------------------------------------------------------------------------
-
+// Création d'un sondage, API-Key requis
 app.MapPost("/api/sondages", async (
     CreateSurveyRequest request,
     ApplicationDbContext db,
@@ -47,11 +42,8 @@ app.MapPost("/api/sondages", async (
     }
 
     var now = clock.GetUtcNow();
-
-    // Un sondage dont la fermeture est déjà passée naîtrait mort : toute soumission
-    // serait refusée en 409 « Sondage clos ». Swagger préremplit closesAt avec un
-    // horodatage généré au rendu de la page, déjà passé au moment du clic — piège
-    // observé en test, d'où cette validation.
+    
+    // Fixe un problème que le temps de validité du sondage peut être sous l'heure actuelle
     if (request.ClosesAt is { } closesAt && closesAt <= now)
     {
         return Results.ValidationProblem(new Dictionary<string, string[]>
@@ -76,6 +68,7 @@ app.MapPost("/api/sondages", async (
 })
 .WithName("CreateSondage");
 
+// Voir un sondage, API-Key requis
 app.MapGet("/api/sondages/{id:guid}", async (Guid id, ApplicationDbContext db) =>
 {
     var survey = await db.Surveys.AsNoTracking()
@@ -89,7 +82,7 @@ app.MapGet("/api/sondages/{id:guid}", async (Guid id, ApplicationDbContext db) =
 })
 .WithName("GetSondage");
 
-// Émet une invitation : c'est ici, et seulement ici, que le jeton en clair existe.
+// Obtenir un token de participant, API-Key requis
 app.MapPost("/api/sondages/{id:guid}/invitations", async (
     Guid id,
     CreateInvitationRequest request,
@@ -130,10 +123,7 @@ app.MapPost("/api/sondages/{id:guid}/invitations", async (
 })
 .WithName("CreateInvitation");
 
-// ---------------------------------------------------------------------------
-// Participation — clé d'API ET jeton de participation
-// ---------------------------------------------------------------------------
-
+// Remplir une réponse d'un sondage, API-Key ET Participant-Key requis
 app.MapPost("/api/sondages/{id:guid}/reponses", async (
     Guid id,
     SubmitResponseRequest request,
@@ -156,8 +146,7 @@ app.MapPost("/api/sondages/{id:guid}/reponses", async (
             title: "Non autorisé", detail: "Jeton de participation absent ou invalide.");
     }
 
-    // Un jeton n'ouvre que SON sondage : sans ce contrôle, une invitation
-    // au sondage A permettrait de répondre au sondage B.
+    // Vérifie que le participant a accès à ce sondage
     if (tokenSurveyId != id)
     {
         return Results.Problem(statusCode: StatusCodes.Status403Forbidden,
@@ -183,11 +172,9 @@ app.MapPost("/api/sondages/{id:guid}/reponses", async (
     }
 
     await using var transaction = await db.Database.BeginTransactionAsync();
-
-    // LE point du livrable. Un « if (déjà répondu) » suivi d'un insert serait une
-    // course TOCTOU : deux requêtes simultanées passeraient toutes deux le test.
-    // Ici la condition est DANS le UPDATE, c'est donc la base qui arbitre, et le
-    // nombre de lignes affectées dit qui a gagné.
+    
+    // Problème de Race-Condition (TOCTOU -> https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use)
+    // Entre le check IF (déjà répondu) et son INSERT dans la base de données
     DateOnly? redeemedOn = DateOnly.FromDateTime(now.UtcDateTime);
 
     var rowsAffected = await db.Invitations
@@ -201,9 +188,7 @@ app.MapPost("/api/sondages/{id:guid}/reponses", async (
             title: "Participation déjà enregistrée",
             detail: "Ce jeton a déjà servi. Une seule réponse par participant.");
     }
-
-    // Même transaction que la rédemption : sinon un plantage ici consommerait
-    // la participation sans enregistrer la réponse.
+    
     db.Responses.Add(new SurveyResponse
     {
         Id = Guid.NewGuid(),
@@ -220,8 +205,7 @@ app.MapPost("/api/sondages/{id:guid}/reponses", async (
 .RequireAuthorization(ParticipantTokenDefaults.PolicyName)
 .WithName("SubmitReponse");
 
-// Démontre que s'authentifier ne consomme pas le jeton : on peut interroger
-// son statut autant de fois qu'on veut sans brûler sa participation.
+// Vérifier si un participant a déjà répondu au sondage, API-Key ET Participant-Key requis
 app.MapGet("/api/sondages/{id:guid}/participation", async (
     Guid id,
     ClaimsPrincipal user,
@@ -261,3 +245,4 @@ static bool TryGetParticipant(ClaimsPrincipal user, out Guid invitationId, out G
 }
 
 record PingResponse(string Status, DateTime Timestamp);
+public partial class Program;       // Classe vide, pour les tests.

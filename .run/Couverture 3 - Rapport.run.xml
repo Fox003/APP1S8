@@ -1,0 +1,15 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Couverture 3 - Rapport" type="RunNativeExe" factoryName="Native Executable" folderName="Couverture">
+    <option name="EXE_PATH" value="$PROJECT_DIR$/../../../../../Program Files/dotnet/dotnet.exe" />
+    <option name="PROGRAM_PARAMETERS" value="reportgenerator &quot;-reports:TestResults/coverage.cobertura.xml&quot; &quot;-targetdir:TestResults/rapport&quot; &quot;-reporttypes:Html;TextSummary;Badges&quot; &quot;-title:SONDAGEAPI - couverture (livrable 5)&quot;" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <option name="ENV_FILE_PATHS" value="" />
+    <option name="REDIRECT_INPUT_PATH" value="" />
+    <option name="MIXED_MODE_DEBUG" value="0" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Couverture 1 - Outils locaux" run_configuration_type="RunNativeExe" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Couverture 2 - Tests" run_configuration_type="RunNativeExe" />
+    </method>
+  </configuration>
+</component>
