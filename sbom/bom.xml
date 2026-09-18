@@ -1,0 +1,1688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" serialNumber="urn:uuid:9f3c5e91-840d-4400-8f88-705425081780" version="1" xmlns="http://cyclonedx.org/schema/bom/1.7">
+  <metadata>
+    <timestamp>2026-09-18T14:03:00.023856Z</timestamp>
+    <tools>
+      <components>
+        <component type="application">
+          <authors>
+            <author>
+              <name>CycloneDX</name>
+            </author>
+          </authors>
+          <name>CycloneDX module for .NET</name>
+          <version>6.2.0.0</version>
+          <externalReferences>
+            <reference type="website">
+              <url>https://github.com/CycloneDX/cyclonedx-dotnet</url>
+            </reference>
+          </externalReferences>
+        </component>
+      </components>
+    </tools>
+    <component type="application" bom-ref="SONDAGEAPI@0.0.0">
+      <name>SONDAGEAPI</name>
+      <version>0.0.0</version>
+    </component>
+  </metadata>
+  <components>
+    <component type="library" bom-ref="pkg:nuget/BCrypt.Net-Next@4.2.0">
+      <authors>
+        <author>
+          <name>Chris McKee, Ryan D. Emerl, Damien Miller</name>
+        </author>
+      </authors>
+      <name>BCrypt.Net-Next</name>
+      <version>4.2.0</version>
+      <description>A fixed, enhanced and namespace compatible version of BCrypt.Net port of jBCrypt implemented in C#. It uses a variant of the Blowfish encryption algorithm’s keying schedule, and introduces a work factor, which allows you to determine how expensive the hash function will be, allowing the algorithm to be "future-proof".</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">ABD808179F7ADCA290851EE81D2FD4A83B6845C110331398FA74BDE5C7F7B8A76B70170ECAD69115E59E606D950709B38C7589FD72F016D95D03965EFB90C905</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>2006-2021 Chris McKee, Ryan D. Emerl, Damien Miller</copyright>
+      <purl>pkg:nuget/BCrypt.Net-Next@4.2.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/BcryptNet/bcrypt.net</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/BcryptNet/bcrypt.net</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Humanizer.Core@2.14.1">
+      <authors>
+        <author>
+          <name>Mehdi Khalili, Claire Novotny</name>
+        </author>
+      </authors>
+      <name>Humanizer.Core</name>
+      <version>2.14.1</version>
+      <description>Humanizer core package that contains the library and the neutral language (English) resources</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">CB3A8653F1CA34B67D52FAFA92F49CDF0615FD2E4EFC8BE4948516E5617B32E8AF18B63CC12E486672CF92DEC3D4A5BC12DD849E5D08DCBCE0DAF196336E17B3</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
+      <purl>pkg:nuget/Humanizer.Core@2.14.1</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/Humanizr/Humanizer</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/Humanizr/Humanizer</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.AspNetCore.Authentication.JwtBearer</name>
+      <version>10.0.12</version>
+      <description>ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.
+
+This package was built from the source code at https://github.com/dotnet/dotnet/tree/95017c711e6afc1085133d440e42b4bd78155701</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">0BBFD102B519E44C2CE8B61B1A251F9D38B99D095AEB96D4E1A4C63A34190D13FB468FD6855CF1E6A5702E785A845136DB99882DB6D355AB412B5F5C42B84096</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://asp.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.AspNetCore.OpenApi@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.AspNetCore.OpenApi</name>
+      <version>10.0.12</version>
+      <description>Provides APIs for annotating route handler endpoints in ASP.NET Core with OpenAPI annotations.
+
+This package was built from the source code at https://github.com/dotnet/dotnet/tree/95017c711e6afc1085133d440e42b4bd78155701</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">605815D27933AF8BE6597F857CE31F25F74E6C011EB2D3CBFDEA8898CF610A12D4A543B821213F2FF42D82A8338881C07C0B948856037A3A1BCE376812B06259</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.AspNetCore.OpenApi@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://asp.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Bcl.Cryptography@10.0.2">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.Bcl.Cryptography</name>
+      <version>10.0.2</version>
+      <description>Provides support for some cryptographic primitives for .NET Framework and .NET Standard.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">ADB3FF92B45D5D7546D74432587D2B59AE7ED2A3F94686FC5590CA9E8F75D241E70DC987F577456C1B5D79D3B9A55565A40D72D8C5D6C77EB4CCB2CD2DCB49F9</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.Bcl.Cryptography@10.0.2</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Build.Framework@18.0.2">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.Build.Framework</name>
+      <version>18.0.2</version>
+      <description>This package contains the Microsoft.Build.Framework assembly which is a common assembly used by other MSBuild assemblies.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">7265E81A770022B0D982ED0DBA6B572524C82EFF4D1D4DAC3E1AE591C91E7CC2B55C2B8952BBC2955C649AF403A6F9B8B022B0485A255B601A9C608B349EB10F</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.Build.Framework@18.0.2</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>http://go.microsoft.com/fwlink/?LinkId=624683</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/msbuild</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.Analyzers</name>
+      <version>3.11.0</version>
+      <description>Analyzers for consumers of Microsoft.CodeAnalysis NuGet package, i.e. extensions and applications built on top of .NET Compiler Platform (Roslyn). This package is included as a development dependency of Microsoft.CodeAnalysis NuGet package and does not need to be installed separately if you are referencing Microsoft.CodeAnalysis NuGet package.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">B4FF522F32CAEF65C2131961F0A5DFACA6D4EB272664BDC4C4697F6B7325ECB372D9469A9BB8058E3526773C936243174F27240871E9CF1EDB0FA04CBA687C06</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn-analyzers</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn-analyzers</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.Common</name>
+      <version>5.0.0</version>
+      <description>A shared package used by the Microsoft .NET Compiler Platform ("Roslyn").
+      Do not install this package manually, it will be added as a prerequisite by other packages that require it.
+    
+      More details at https://aka.ms/roslyn-packages
+      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">B8AE72B254C94365339F3625B6D16E0C26BFE8AAEE3756905BF64D1451EF2BECB203AABBBD9E68D0148FBCB8FE0A89B5FD1EF0189D3B7363B494F71B0EB99077</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.CSharp</name>
+      <version>5.0.0</version>
+      <description>.NET Compiler Platform ("Roslyn") support for C#, Microsoft.CodeAnalysis.CSharp.dll.
+    
+      More details at https://aka.ms/roslyn-packages
+      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">C304FF089390C90EF62DDA2ECBB8234BFDD58BDDA16C00285376347BFEA66F7F7E569EDA5EBDCFC6E043EF753642B2B5CF3813CAFDD086F24FAD05F4122592F1</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.CSharp.Workspaces</name>
+      <version>5.0.0</version>
+      <description>.NET Compiler Platform ("Roslyn") support for analyzing C# projects and solutions.
+    
+      More details at https://aka.ms/roslyn-packages
+      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">172D01371728F5BED70BB2CA75382AF8A93AD8729AA7210CD392CDE6E6B736DE8F678A737C0021FBD0E0FD55B86927E5818A22430FE68E7A2D814B8CF4D3FA2B</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.Workspaces.Common</name>
+      <version>5.0.0</version>
+      <description>A shared package used by the .NET Compiler Platform ("Roslyn") including support for analyzing projects and solutions.
+      Do not install this package manually, it will be added as a prerequisite by other packages that require it.
+    
+      More details at https://aka.ms/roslyn-packages
+      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">CDB289C889055BED81C7979097F21604B99B3D3A68F7F53201BB7CBDA5535ECA22E046255EB25FB42459994B26C903FBA60DEA28C891E9CCCF7548D369D36484</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.CodeAnalysis.Workspaces.MSBuild</name>
+      <version>5.0.0</version>
+      <description>.NET Compiler Platform ("Roslyn") support for analyzing MSBuild projects and solutions. This should be used with at least one
+      of the following packages to add the appropriate language support:
+      - Microsoft.CodeAnalysis.CSharp.Workspaces
+      - Microsoft.CodeAnalysis.VisualBasic.Workspaces
+    
+      More details at https://aka.ms/roslyn-packages
+      This package was built from the source at https://github.com/dotnet/roslyn/commit/6c4a46a31302167b425d5e0a31ea83c9a9aa1d09.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">C7F857EBC2E1E1D2C6A9C28E32B2D4B96CDF5444E6EDC8B0AB0F2D1BCC7AEDB5421C238588F33C5E3E2BFD98C11605FA2150E7CEDB40A095A75471E6320FC7AE</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/roslyn</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Data.Sqlite.Core@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.Data.Sqlite.Core</name>
+      <version>10.0.12</version>
+      <description>Microsoft.Data.Sqlite is a lightweight ADO.NET provider for SQLite. This package does not include a copy of the native SQLite library.
+
+Commonly Used Types:
+Microsoft.Data.Sqlite.SqliteCommand
+Microsoft.Data.Sqlite.SqliteConnection
+Microsoft.Data.Sqlite.SqliteConnectionStringBuilder
+Microsoft.Data.Sqlite.SqliteDataReader
+Microsoft.Data.Sqlite.SqliteException
+Microsoft.Data.Sqlite.SqliteFactory
+Microsoft.Data.Sqlite.SqliteParameter
+Microsoft.Data.Sqlite.SqliteTransaction</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">53A6B55C6C36E2DF4CDFD20D8C0EF28E770B90697F52B24128814A0DAA9D8C1DC9214607E878D40CDA245EB7D55F65D54B45940CF1A3994FDA3A15B713ADA6F5</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.Data.Sqlite.Core@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/dotnet/standard/data/sqlite/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore</name>
+      <version>10.0.12</version>
+      <description>Entity Framework Core is a modern object-database mapper for .NET. It supports LINQ queries, change tracking, updates, and schema migrations. EF Core works with SQL Server, Azure SQL Database, SQLite, Azure Cosmos DB, MySQL, PostgreSQL, and other databases through a provider plugin API.
+
+Commonly Used Types:
+Microsoft.EntityFrameworkCore.DbContext
+Microsoft.EntityFrameworkCore.DbSet</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">44C3A15833E7358ADAEA12A48FB9A8624A5E4C8515F0C047D9AAC3B86933C59E1CBA7EFE6C3D8741FCB8C1B59A1AE7DD9DD04FF550945AECA21AAD4FBF9C1BC7</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Abstractions</name>
+      <version>10.0.12</version>
+      <description>Provides abstractions and attributes that are used to configure Entity Framework Core</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">C07C284DCE00FC1C167964643DFD1ACDA0F285135FDCAF2A61670097EBF7CEC39D3FCC5EFE292FC525D799EED5BB54F17DCF271F9EFDC1494C39DD513771B2AB</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Analyzers</name>
+      <version>10.0.12</version>
+      <description>CSharp Analyzers for Entity Framework Core.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">9816A33F32FAD1E3F6D4575BB179B6E7830BA6236D949408DF9D803E9E2D95A9BD46ACBD7EBB52AFEF47527A0007272B0608A296EA0E7880DD3EA324DD59CF3A</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Design</name>
+      <version>10.0.12</version>
+      <description>Shared design-time components for Entity Framework Core tools.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">EFFE25131AD4D094A1AA672EFBA0D007A431FE5710CB8EDB1FCCEDA453D23336DA81261DF1E1721BD21A2219ABBECD966346F9A14C7ADDE8F6325E6507E617A1</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Relational</name>
+      <version>10.0.12</version>
+      <description>Shared Entity Framework Core components for relational database providers.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">D82207875922090D5058F8C78EBE16F08362FDF40C7994F664139DFDB1394D6C09859F80A728145AB02AD51DCD44CB838B03E59F41D078BEAF122FD2BE82AD76</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Sqlite</name>
+      <version>10.0.12</version>
+      <description>SQLite database provider for Entity Framework Core.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">C656CB4E759EBA1ABE890020A447AF6B67989F51E4683F82C9075A3E7BE08653724AB90F480419014AC322FCEDD2E816F8568620920C89EC1C065B65A8142A5E</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite.Core@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Sqlite.Core</name>
+      <version>10.0.12</version>
+      <description>SQLite database provider for Entity Framework Core. This package does not include a copy of the native SQLite library.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">83434C44395AA3627E0202AB99AF58DC3A63376C6AE3329CF7076CD5DDEA83E2D56DD213D316FB2DE83FDE8780817960D7CE8DA831604EC63A7160B2EB189DA5</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite.Core@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.EntityFrameworkCore.Tools@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.EntityFrameworkCore.Tools</name>
+      <version>10.0.12</version>
+      <description>Entity Framework Core Tools for the NuGet Package Manager Console in Visual Studio.
+
+Enables these commonly used commands:
+Add-Migration
+Bundle-Migration
+Drop-Database
+Get-DbContext
+Get-Migration
+Optimize-DbContext
+Remove-Migration
+Scaffold-DbContext
+Script-Migration
+Update-Database</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">85D19F463AFF319AA5AD0689C4ED750D490AB18600902339354A1B59A5ED1B5ABE9DDCC99DAEF2F63241AAB1AF58DF36886A5AF0ECD001DB729F45EC34D9E62D</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.EntityFrameworkCore.Tools@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://docs.microsoft.com/ef/core/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Extensions.ApiDescription.Server@10.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.Extensions.ApiDescription.Server</name>
+      <version>10.0.0</version>
+      <description>MSBuild tasks and targets for build-time Swagger and OpenApi document generation
+
+This package was built from the source code at https://github.com/dotnet/dotnet/tree/b0f34d51fccc69fd334253924abd8d6853fad7aa</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">25E9DDC666061CCBB34870E47B511EEAB7693CF1C8965E5A6F479650A4539138176DD67591575F15700534A7F67D2E13F2F0E9DC295BEF6B0D2875739D1C5AE7</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.Extensions.ApiDescription.Server@10.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://asp.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.Extensions.DependencyModel</name>
+      <version>10.0.12</version>
+      <description>Provides abstractions for reading `.deps` files. When a .NET application is compiled, the SDK generates a JSON manifest file (`&lt;ApplicationName&gt;.deps.json`) that contains information about application dependencies. You can use `Microsoft.Extensions.DependencyModel` to read information from this manifest at run time. This is useful when you want to dynamically compile code (for example, using Roslyn Emit API) referencing the same dependencies as your main application.
+
+By default, the dependency manifest contains information about the application's target framework and runtime dependencies. Set the PreserveCompilationContext project property to `true` to additionally include information about reference assemblies used during compilation.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">FA0389380B947A302CA31D3F0742733650E79878C75BB96705FD0ED99B936D344FF921F10D8300780B06372DED3AB9F461B57F9E98F4703783BF14F5E379E83E</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.Abstractions@8.22.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.Abstractions</name>
+      <version>8.22.0</version>
+      <description>A package containing thin abstractions for Microsoft.IdentityModel.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">91EF229B1EDC39741A979C177F4D640EDFB64E41BF88BBBCDFF94E70D734ACB95D7C676198CA88A710A0F2A7CAE82163D94138CC0786DEC4C0E0CCB4D4A53404</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.Abstractions@8.22.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@8.22.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.JsonWebTokens</name>
+      <version>8.22.0</version>
+      <description>Includes types that provide support for creating, serializing and validating JSON Web Tokens. This is a newer, faster version of System.IdentityModel.Tokens.Jwt that has additional functionality.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">E68D8041535FA9D88F9C05371E06773476A5D843350267356032C43D84D00015BC823392E3BECF80578FEEC121E6139F393C07D7B5488346071D5829E6A910DD</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@8.22.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.Logging@8.22.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.Logging</name>
+      <version>8.22.0</version>
+      <description>Includes Event Source based logging support.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">6DAB1227B644262701EB98E6963A8E358D121C13B5A6B025875B111B148D37D4F15147435D57F08347D76EF097909F1045C4689AAD0BEDE08E31F1FCA9E73987</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.Logging@8.22.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.Protocols@8.19.2">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.Protocols</name>
+      <version>8.19.2</version>
+      <description>Provides base protocol support for OpenIdConnect and WsFederation.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">F8E4D1898AFD9310EFB8668DB4F6E54B466551C326805D3B6243DAFB9959D702FB3979D70DECA6DBD5D05A2B8A9E299F9E190EED3E229AD900F1DCB8EA9E3839</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.Protocols@8.19.2</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.Protocols.OpenIdConnect@8.19.2">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.Protocols.OpenIdConnect</name>
+      <version>8.19.2</version>
+      <description>Includes types that provide support for OpenIdConnect protocol.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">24C8A8A345DF0BA1A4E948B949BB3D952CE4164A7BF2F8DCC5BEEAB734602B793505707C05A7A0ABF4ABFD13A0D34AA4ABDF4CB19659B779A00C67400854EFD3</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.Protocols.OpenIdConnect@8.19.2</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.IdentityModel.Tokens</name>
+      <version>8.22.0</version>
+      <description>Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">99E54B13374E34C81AC5191E9C6CC037AB8A990813B11641D4770B41DFB7BC8BFD53C21FDBBE6FFEA4165AEC6FDADC72943DD58F6983436AE488A0D5A8D1DD8F</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.OpenApi@2.12.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.OpenApi</name>
+      <version>2.12.0</version>
+      <description>.NET models with JSON and YAML writers for OpenAPI specification</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">8EA1CE293B0170F035C6A2B99686528F54A8B30A1BDBD9BEF9A79BFC6F96175EFAC525E9BB69F4C458C5E3C3D7BA3325DE750C1742713EA23CE16864901588E4</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.OpenApi@2.12.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/Microsoft/OpenAPI.NET</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/Microsoft/OpenAPI.NET</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>Microsoft.VisualStudio.SolutionPersistence</name>
+      <version>1.0.52</version>
+      <description>Package Description</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">947C8C9B98F9C11C15682DEF9425AB147D851B2D92A45519A8BBD8873C1FD5C1142100940A153DEB487C92D78549FD356642D2809C2BCE79ACA708D6F243EDAC</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/microsoft/vs-solutionpersistence</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/microsoft/vs-solutionpersistence</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Mono.TextTemplating@3.0.0">
+      <authors>
+        <author>
+          <name>Mikayla Hutchinson</name>
+        </author>
+      </authors>
+      <name>Mono.TextTemplating</name>
+      <version>3.0.0</version>
+      <description>Embeddable engine for the T4 templating language, a general-purpose way to generate text or code files using C#</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">C29F7669B51D5757E18CC9F64E40E743BD52DA8F6B685EE1620B20A20248DA2AEC55445CBA504CABBB8B600AEEBA6DDF19C08E0BE62E10B34D877FE9FA6B7F9A</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/Mono.TextTemplating@3.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/mono/t4</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/mono/t4</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Newtonsoft.Json@13.0.4">
+      <authors>
+        <author>
+          <name>James Newton-King</name>
+        </author>
+      </authors>
+      <name>Newtonsoft.Json</name>
+      <version>13.0.4</version>
+      <description>Json.NET is a popular high-performance JSON framework for .NET</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">6D1FAFF84FF227A83B195DAE5F0D8EAD44A36187E32E438B0BC243E24092DB79AC2DAA672AD7493C1240EF97F01C7FBE12B21F7DE22ACD82132F102EAF82805C</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright © James Newton-King 2008</copyright>
+      <purl>pkg:nuget/Newtonsoft.Json@13.0.4</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.newtonsoft.com/json</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/JamesNK/Newtonsoft.Json</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Obfuscar@2.2.50">
+      <authors>
+        <author>
+          <name>Ryan Williams, and other contributors.</name>
+        </author>
+      </authors>
+      <name>Obfuscar</name>
+      <version>2.2.50</version>
+      <description>Open source obfuscar for .NET and Mono.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">245578F359F0C1BE7937047FEB5050DEE38C49019BEB1DEABAE0BAAA4B2102012E0965924525B3C9E74AB91CD5536A206B0EB053AC657D6A5A82F44C8808AD43</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright (c) 2007 Ryan Williams. Copyright (c) 2009-2025 Calvin Rien, Lex Li, RemObjects and other contributors.</copyright>
+      <purl>pkg:nuget/Obfuscar@2.2.50</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://www.obfuscar.com/</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/SQLitePCLRaw.bundle_e_sqlite3@2.1.12">
+      <authors>
+        <author>
+          <name>Eric Sink</name>
+        </author>
+      </authors>
+      <name>SQLitePCLRaw.bundle_e_sqlite3</name>
+      <version>2.1.12</version>
+      <description>This 'batteries-included' bundle brings in SQLitePCLRaw.core and the necessary stuff for certain common use cases.  Call SQLitePCL.Batteries.Init().  Policy of this bundle: e_sqlite3 included</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">29B78A5ED88CAE9C5DEDD160B27A2B03519C8BFC554430819A47D935D8A213595AE8E75410CB724D32774C17829FD9C8BD9817A39B8277D7550A38B7032E8BB8</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+        </license>
+      </licenses>
+      <copyright>Copyright 2014-2024 SourceGear, LLC</copyright>
+      <purl>pkg:nuget/SQLitePCLRaw.bundle_e_sqlite3@2.1.12</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>https://github.com/ericsink/SQLitePCL.raw</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/SQLitePCLRaw.core@2.1.12">
+      <authors>
+        <author>
+          <name>Eric Sink</name>
+        </author>
+      </authors>
+      <name>SQLitePCLRaw.core</name>
+      <version>2.1.12</version>
+      <description>SQLitePCL.raw is a Portable Class Library (PCL) for low-level (raw) access to SQLite.  This package does not provide an API which is friendly to app developers.  Rather, it provides an API which handles platform and configuration issues, upon which a friendlier API can be built.  In order to use this package, you will need to also add one of the SQLitePCLRaw.provider.* packages and call raw.SetProvider().  Convenience packages are named SQLitePCLRaw.bundle_*.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">5A09A0C8AC062D347A65F21FD7ED5D14DC6C3B2A7D1A6B14F588E37948E0CFE3599F0DA1CA3541D14F2D693D59D6FBF6D6CE7E82F847437BEDA596A3B0C28962</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+        </license>
+      </licenses>
+      <copyright>Copyright 2014-2024 SourceGear, LLC</copyright>
+      <purl>pkg:nuget/SQLitePCLRaw.core@2.1.12</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>https://github.com/ericsink/SQLitePCL.raw</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/SQLitePCLRaw.lib.e_sqlite3@2.1.12">
+      <authors>
+        <author>
+          <name>Eric Sink</name>
+        </author>
+      </authors>
+      <name>SQLitePCLRaw.lib.e_sqlite3</name>
+      <version>2.1.12</version>
+      <description>SQLitePCLRaw is a Portable Class Library (PCL) for low-level (raw) access to SQLite</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">0E58BE10B28DB915F483BD94AB62363996B9CE08B87F049757825EDF0C85EE31FDA33E8029103DC17233330B95796ED17C065D49580870479964E379F4B76D88</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+        </license>
+      </licenses>
+      <copyright>Copyright 2014-2024 SourceGear, LLC</copyright>
+      <purl>pkg:nuget/SQLitePCLRaw.lib.e_sqlite3@2.1.12</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>https://github.com/ericsink/SQLitePCL.raw</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@2.1.12">
+      <authors>
+        <author>
+          <name>Eric Sink</name>
+        </author>
+      </authors>
+      <name>SQLitePCLRaw.provider.e_sqlite3</name>
+      <version>2.1.12</version>
+      <description>SQLitePCLRaw is a Portable Class Library (PCL) for low-level (raw) access to SQLite.  Packages named 'SQLitePCLRaw.provider.*' (like this one) are 'plugins' that allow SQLitePCLRaw.core to access the native SQLite library.  This provider does DllImport of 'e_sqlite3', the SQLite builds provided with SQLitePCLRaw.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">9384426E53FE1DCD4901CEFB72B57E7C564B8997893DA63C563300F24BE48B4D19D1DA211BAC715F0E2A92E5720940B6F870A16E1C16FB27619A39A551901751</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+        </license>
+      </licenses>
+      <copyright>Copyright 2014-2024 SourceGear, LLC</copyright>
+      <purl>pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@2.1.12</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>https://github.com/ericsink/SQLitePCL.raw</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Swashbuckle.AspNetCore@10.2.3">
+      <authors>
+        <author>
+          <name>domaindrivendev</name>
+        </author>
+      </authors>
+      <name>Swashbuckle.AspNetCore</name>
+      <version>10.2.3</version>
+      <description>Swagger tools for documenting APIs built on ASP.NET Core</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">227BB3529A7260CBFF727D20BAE694471258E878557B9F1F1AFE7C39A75EF1274B7B8F5CE460131FC0C403ECD0BAFC84BFDCEB70D1438232CE9CC611394D5899</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:nuget/Swashbuckle.AspNetCore@10.2.3</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Swashbuckle.AspNetCore.Swagger@10.2.3">
+      <authors>
+        <author>
+          <name>domaindrivendev</name>
+        </author>
+      </authors>
+      <name>Swashbuckle.AspNetCore.Swagger</name>
+      <version>10.2.3</version>
+      <description>Middleware to expose Swagger JSON endpoints from APIs built on ASP.NET Core</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">9BA227C1E1AA2BB673665A8EC26DD83E55641F8B7769CE394AD4D4DB5BBA2901C39E649AD6F37DD2E191A8CC41B941B07D86CB1A85A39623408BB8AD71C2C37D</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright (c) 2016-2026 Richard Morris</copyright>
+      <purl>pkg:nuget/Swashbuckle.AspNetCore.Swagger@10.2.3</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@10.2.3">
+      <authors>
+        <author>
+          <name>domaindrivendev</name>
+        </author>
+      </authors>
+      <name>Swashbuckle.AspNetCore.SwaggerGen</name>
+      <version>10.2.3</version>
+      <description>Swagger Generator for APIs built on ASP.NET Core</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">71322FE48BA37C1C77BE0292419E1F993C6E39819BEA0CABFB2FB83B930BE28ACED0300BE9D45ABE0FF410E43667509D7FFE83FCC175612F657729C716E2D833</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright (c) 2016-2026 Richard Morris</copyright>
+      <purl>pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@10.2.3</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@10.2.3">
+      <authors>
+        <author>
+          <name>domaindrivendev</name>
+        </author>
+      </authors>
+      <name>Swashbuckle.AspNetCore.SwaggerUI</name>
+      <version>10.2.3</version>
+      <description>Middleware to expose an embedded version of the swagger-ui from an ASP.NET Core application</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">046AFDDFF3AAB45262915A4F839371DC9BA5D63C16AE894C721DF75E437F3AEAC03B7F688189B9D8E089ED215EBFB4CF28AAF6F77AE1A219CA79CA70B21E7976</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>Copyright (c) 2016-2026 Richard Morris</copyright>
+      <purl>pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@10.2.3</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/domaindrivendev/Swashbuckle.AspNetCore.git</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.CodeDom@6.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.CodeDom</name>
+      <version>6.0.0</version>
+      <description>Provides types that can be used to model the structure of a source code document and to output source code for that model in a supported language.
+
+Commonly Used Types:
+System.CodeDom.CodeObject
+System.CodeDom.Compiler.CodeDomProvider
+Microsoft.CSharp.CSharpCodeProvider
+Microsoft.VisualBasic.VBCodeProvider</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">2B911B7C9BC524C86562A26547DFC92A8C774ED5937993A4A22E8A9CA1B146151AEAEAF15E4271FF6FE6CF20AF634815AA1485A5A4C48D24ACF39B2A6BC3CF27</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.CodeDom@6.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition</name>
+      <version>9.0.0</version>
+      <description>Provides a version of the Managed Extensibility Framework (MEF) that is lightweight and specifically optimized for high throughput scenarios, such as the web.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">6967322BDD27202847CB1ABBAE943CDC16EFB7FB7D9755FAC90B64BCE0DA67EAC99581D4315A528E2D185C86535F956571644255115D78463BEBB0423B3B9E6B</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition.AttributedModel@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition.AttributedModel</name>
+      <version>9.0.0</version>
+      <description>Provides the foundational attributes that allow you to declare parts for composition, such as imports, exports, and metadata with the Managed Extensibility Framework (MEF).</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">A18B90CE522F3B7D46C52953A3A34253E4672BD7556F59B5E7804D13B5469BD3D4C8933E46B390B2CF1C35B323FA221655CA7A5519F2265049DCC7F3628D7800</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition.AttributedModel@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition.Convention@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition.Convention</name>
+      <version>9.0.0</version>
+      <description>Provides types that support using Managed Extensibility Framework (MEF) with a convention-based configuration model.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">DDE7E1C67FFB85023D90DCBA33A514C16ACC242CDD059678864612DCC531A97C86750DAC2C2593A17D672E79EB45869F71D45230E6369DA30F36544010A0C018</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition.Convention@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition.Hosting@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition.Hosting</name>
+      <version>9.0.0</version>
+      <description>Provides Managed Extensibility Framework (MEF) types that are useful to developers of extensible applications, or hosts.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">CCB3C66CC630EB2D86A0D0637283E7BD7B7BC1224CFEA206D5F5360E8F240CE6C34D85871BA7C53A1BA5495897D08A768FEA867AE0844AA12CC02446FB10EFC0</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition.Hosting@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition.Runtime@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition.Runtime</name>
+      <version>9.0.0</version>
+      <description>Contains runtime components of the Managed Extensibility Framework (MEF).</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">3FBEFB6813C8C262EF2F443C98F03B4628A899F8EA2D36E95FFC732A993B61324B72F3C3313BD121F345A209C4A5F25844B69D07299A04853CD6F5B73336589C</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition.Runtime@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.Composition.TypedParts@9.0.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.Composition.TypedParts</name>
+      <version>9.0.0</version>
+      <description>Provides container configuration and some extension methods for the Managed Extensibility Framework (MEF).</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">EDBEE6927E07D35E3D8CD283D6D651506DA09A4B333733BA600195FB112CC5D7C853EE522E1C56458269AA6D732B328D773A4A516F77A3210519C4EEA0DBEA1A</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.Composition.TypedParts@9.0.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://dot.net/</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/dotnet/runtime</url>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0">
+      <authors>
+        <author>
+          <name>Microsoft</name>
+        </author>
+      </authors>
+      <name>System.IdentityModel.Tokens.Jwt</name>
+      <version>8.22.0</version>
+      <description>Includes types that provide support for creating, serializing and validating JSON Web Tokens. As of IdentityModel 7x, this is a legacy tool that should be replaced with Microsoft.IdentityModel.JsonWebTokens.</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="SHA-512">F1DC21B5234DC8DCA82413C2415E46AC6E556F8CB39A5497F76055A7A48F9E97BC9BEF9C5229E6C8C2F72FE1D791458A3B87B241A79D5242152F28A2152124D1</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+      <purl>pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0</purl>
+      <externalReferences>
+        <reference type="website">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+        <reference type="vcs">
+          <url>https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet</url>
+        </reference>
+      </externalReferences>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="pkg:nuget/BCrypt.Net-Next@4.2.0" />
+    <dependency ref="pkg:nuget/Humanizer.Core@2.14.1" />
+    <dependency ref="pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Protocols.OpenIdConnect@8.19.2" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.AspNetCore.OpenApi@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.OpenApi@2.12.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.Bcl.Cryptography@10.0.2" />
+    <dependency ref="pkg:nuget/Microsoft.Build.Framework@18.0.2" />
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0">
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0">
+      <dependency ref="pkg:nuget/Humanizer.Core@2.14.1" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0" />
+      <dependency ref="pkg:nuget/System.Composition@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0">
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0">
+      <dependency ref="pkg:nuget/Humanizer.Core@2.14.1" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Common@5.0.0" />
+      <dependency ref="pkg:nuget/System.Composition@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0">
+      <dependency ref="pkg:nuget/Humanizer.Core@2.14.1" />
+      <dependency ref="pkg:nuget/Microsoft.Build.Framework@18.0.2" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Analyzers@3.11.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.Common@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52" />
+      <dependency ref="pkg:nuget/Newtonsoft.Json@13.0.4" />
+      <dependency ref="pkg:nuget/System.Composition@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.Data.Sqlite.Core@10.0.12">
+      <dependency ref="pkg:nuget/SQLitePCLRaw.core@2.1.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.12" />
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.12" />
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.12">
+      <dependency ref="pkg:nuget/Humanizer.Core@2.14.1" />
+      <dependency ref="pkg:nuget/Microsoft.Build.Framework@18.0.2" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.CSharp.Workspaces@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.CodeAnalysis.Workspaces.MSBuild@5.0.0" />
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12" />
+      <dependency ref="pkg:nuget/Mono.TextTemplating@3.0.0" />
+      <dependency ref="pkg:nuget/Newtonsoft.Json@13.0.4" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore@10.0.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite.Core@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.Data.Sqlite.Core@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Relational@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12" />
+      <dependency ref="pkg:nuget/SQLitePCLRaw.core@2.1.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite.Core@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12" />
+      <dependency ref="pkg:nuget/SQLitePCLRaw.bundle_e_sqlite3@2.1.12" />
+      <dependency ref="pkg:nuget/SQLitePCLRaw.core@2.1.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Tools@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Design@10.0.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore@10.0.12">
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Abstractions@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Analyzers@10.0.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.Extensions.ApiDescription.Server@10.0.0" />
+    <dependency ref="pkg:nuget/Microsoft.Extensions.DependencyModel@10.0.12" />
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.Abstractions@8.22.0" />
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@8.22.0">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.Logging@8.22.0">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Abstractions@8.22.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.Protocols.OpenIdConnect@8.19.2">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Protocols@8.19.2" />
+      <dependency ref="pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.Protocols@8.19.2">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0">
+      <dependency ref="pkg:nuget/Microsoft.Bcl.Cryptography@10.0.2" />
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Logging@8.22.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Microsoft.OpenApi@2.12.0" />
+    <dependency ref="pkg:nuget/Microsoft.VisualStudio.SolutionPersistence@1.0.52" />
+    <dependency ref="pkg:nuget/Mono.TextTemplating@3.0.0">
+      <dependency ref="pkg:nuget/System.CodeDom@6.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Newtonsoft.Json@13.0.4" />
+    <dependency ref="pkg:nuget/Obfuscar@2.2.50" />
+    <dependency ref="pkg:nuget/SQLitePCLRaw.bundle_e_sqlite3@2.1.12">
+      <dependency ref="pkg:nuget/SQLitePCLRaw.lib.e_sqlite3@2.1.12" />
+      <dependency ref="pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@2.1.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/SQLitePCLRaw.core@2.1.12" />
+    <dependency ref="pkg:nuget/SQLitePCLRaw.lib.e_sqlite3@2.1.12" />
+    <dependency ref="pkg:nuget/SQLitePCLRaw.provider.e_sqlite3@2.1.12">
+      <dependency ref="pkg:nuget/SQLitePCLRaw.core@2.1.12" />
+    </dependency>
+    <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.Swagger@10.2.3">
+      <dependency ref="pkg:nuget/Microsoft.OpenApi@2.12.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@10.2.3">
+      <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.Swagger@10.2.3" />
+    </dependency>
+    <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@10.2.3" />
+    <dependency ref="pkg:nuget/Swashbuckle.AspNetCore@10.2.3">
+      <dependency ref="pkg:nuget/Microsoft.Extensions.ApiDescription.Server@10.0.0" />
+      <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.Swagger@10.2.3" />
+      <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerGen@10.2.3" />
+      <dependency ref="pkg:nuget/Swashbuckle.AspNetCore.SwaggerUI@10.2.3" />
+    </dependency>
+    <dependency ref="pkg:nuget/System.CodeDom@6.0.0" />
+    <dependency ref="pkg:nuget/System.Composition.AttributedModel@9.0.0" />
+    <dependency ref="pkg:nuget/System.Composition.Convention@9.0.0">
+      <dependency ref="pkg:nuget/System.Composition.AttributedModel@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/System.Composition.Hosting@9.0.0">
+      <dependency ref="pkg:nuget/System.Composition.Runtime@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/System.Composition.Runtime@9.0.0" />
+    <dependency ref="pkg:nuget/System.Composition.TypedParts@9.0.0">
+      <dependency ref="pkg:nuget/System.Composition.AttributedModel@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.Hosting@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.Runtime@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/System.Composition@9.0.0">
+      <dependency ref="pkg:nuget/System.Composition.AttributedModel@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.Convention@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.Hosting@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.Runtime@9.0.0" />
+      <dependency ref="pkg:nuget/System.Composition.TypedParts@9.0.0" />
+    </dependency>
+    <dependency ref="pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0">
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.JsonWebTokens@8.22.0" />
+      <dependency ref="pkg:nuget/Microsoft.IdentityModel.Tokens@8.22.0" />
+    </dependency>
+    <dependency ref="SONDAGEAPI@0.0.0">
+      <dependency ref="pkg:nuget/BCrypt.Net-Next@4.2.0" />
+      <dependency ref="pkg:nuget/Microsoft.AspNetCore.Authentication.JwtBearer@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.AspNetCore.OpenApi@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Sqlite@10.0.12" />
+      <dependency ref="pkg:nuget/Microsoft.EntityFrameworkCore.Tools@10.0.12" />
+      <dependency ref="pkg:nuget/Obfuscar@2.2.50" />
+      <dependency ref="pkg:nuget/Swashbuckle.AspNetCore@10.2.3" />
+      <dependency ref="pkg:nuget/System.IdentityModel.Tokens.Jwt@8.22.0" />
+    </dependency>
+  </dependencies>
+</bom>

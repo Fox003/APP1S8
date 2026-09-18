@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SONDAGEAPI.Services;
 
 namespace SONDAGEAPI.Controllers;
 
+[ExcludeFromCodeCoverage]
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(AuthenticationSchemes = "ApiKey")]

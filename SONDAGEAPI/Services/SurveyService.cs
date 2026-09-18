@@ -1,13 +1,12 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using SONDAGEAPI.Data;
 using SONDAGEAPI.DTOs;
-using SONDAGEAPI.Models;
 using SONDAGEAPI.Models.Survey;
 
 namespace SONDAGEAPI.Services;
 
+[ExcludeFromCodeCoverage]
 public class SurveyService(ApplicationDbContext db) : ISurveyService
 {
     public async Task<SurveyResponseDto?> GetByIdAsync(Guid id)

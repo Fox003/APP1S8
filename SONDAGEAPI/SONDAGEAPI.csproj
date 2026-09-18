@@ -8,6 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Obfuscar" Version="2.2.50">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="obfuscar.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'AOT'">
+    <PropertyGroup>
+      <_ObfuscarConfig>$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)obfuscar.xml'))</_ObfuscarConfig>
+    </PropertyGroup>
+    <Copy SourceFiles="$(ProjectDir)obfuscar.xml" DestinationFiles="$(_ObfuscarConfig)" />
+    <XmlPoke XmlInputPath="$(_ObfuscarConfig)" Query="/Obfuscator/Var[@name='OutPath']/@value" Value="$(TargetDir)obfuscated" />
+    <XmlPoke XmlInputPath="$(_ObfuscarConfig)" Query="/Obfuscator/Module/@file" Value="$(TargetPath)" />
+    <Exec Command="obfuscar.console &quot;$(_ObfuscarConfig)&quot;" />
+  </Target>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />

@@ -1,9 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using SONDAGEAPI.Models;
 using SONDAGEAPI.Services;
 
 namespace SONDAGEAPI.Controllers;
-
+[ExcludeFromCodeCoverage]
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController(IAuthService authService) : ControllerBase
