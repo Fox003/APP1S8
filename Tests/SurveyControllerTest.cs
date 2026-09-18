@@ -6,10 +6,6 @@ using SONDAGEAPI.Services;
 
 namespace Tests;
 
-/// <summary>
-/// Endpoints de lecture de SurveyController : GetSurvey et GetSurveys.
-/// Le service est bouchonne avec Moq, donc seul le controleur est teste.
-/// </summary>
 public class SurveyControllerTest
 {
     private Mock<ISurveyService> mockSurveyService;

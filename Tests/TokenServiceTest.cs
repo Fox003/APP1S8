@@ -7,11 +7,6 @@ using SONDAGEAPI.Services;
 
 namespace Tests;
 
-/// <summary>
-/// TokenService, teste pour de vrai (pas de bouchon) : seule la configuration
-/// est bouchonnee avec Moq. Un jeton mal forme ou un jeton previsible est une
-/// faille, donc les proprietes de securite sont verifiees explicitement.
-/// </summary>
 public class TokenServiceTest
 {
     // 32 octets minimum, sinon HmacSha256 refuse la cle.

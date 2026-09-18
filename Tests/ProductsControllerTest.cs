@@ -6,11 +6,6 @@ using SONDAGEAPI.Services;
 
 namespace Tests;
 
-/// <summary>
-/// Endpoints de ProductsController. Le controleur est protege par le schema
-/// ApiKey, mais l'autorisation est un filtre du pipeline : en test unitaire on
-/// verifie seulement le contrat de reponse de chaque action.
-/// </summary>
 public class ProductsControllerTest
 {
     private Mock<IProductService> mockProductService;

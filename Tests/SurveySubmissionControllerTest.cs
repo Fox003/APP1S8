@@ -8,12 +8,6 @@ using SONDAGEAPI.Services;
 
 namespace Tests;
 
-/// <summary>
-/// Endpoints de soumission de SurveyController : SubmitSurvey et GetMySubmission.
-/// Ces deux actions lisent l'identifiant du repondant dans la revendication
-/// NameIdentifier posee par le schema ApiKey, donc chaque test fabrique son
-/// ClaimsPrincipal.
-/// </summary>
 public class SurveySubmissionControllerTest
 {
     private Mock<ISurveyService> mockSurveyService;

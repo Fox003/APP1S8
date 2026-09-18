@@ -7,11 +7,6 @@ using SONDAGEAPI.Services;
 
 namespace Tests;
 
-/// <summary>
-/// AuthService teste contre une vraie base SQLite en memoire, avec ITokenService
-/// bouchonne. Volontairement pas le fournisseur InMemory d'EF Core : le hachage
-/// BCrypt et les requetes sur RefreshTokens doivent s'executer pour de vrai.
-/// </summary>
 public class AuthServiceTest : IDisposable
 {
     private const string Username = "fo";
