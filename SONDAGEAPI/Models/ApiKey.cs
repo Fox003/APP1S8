@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace SONDAGEAPI.Models;
 
+[ExcludeFromCodeCoverage]
 public class ApiKey
 {
     public int Id { get; set; }

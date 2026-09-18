@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
@@ -11,6 +12,7 @@ namespace SONDAGEAPI.Handlers;
 // Source - https://stackoverflow.com/a/75059938
 // Posted by SergVro
 // Retrieved 2026-09-17, License - CC BY-SA 4.0
+[ExcludeFromCodeCoverage]
 public class ApiKeyAuthenticationSchemeHandler(
     IOptionsMonitor<ApiKeyAuthenticationSchemeOptions> options, 
     ILoggerFactory logger, 

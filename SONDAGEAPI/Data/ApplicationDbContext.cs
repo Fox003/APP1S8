@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SONDAGEAPI.Models.Survey;
 
@@ -6,6 +7,7 @@ namespace SONDAGEAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using SONDAGEAPI.Models;
 
+[ExcludeFromCodeCoverage]
 public class ApplicationDbContext : DbContext
 {
     public DbSet<Product> Products { get; set; }
